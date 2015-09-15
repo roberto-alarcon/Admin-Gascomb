@@ -34,7 +34,6 @@ class Sign extends CI_Controller {
 		$password 	= $this->input->post('password');
 		$bd 		= $this->input->post('sistema');
 
-		echo $bd;
 
 		$result = $this->users_2->login($username, $password , $bd );	
 

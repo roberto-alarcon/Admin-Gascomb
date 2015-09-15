@@ -19,6 +19,19 @@ class Gascomb {
 	var $dev_cdn_path		= 'http://cdn-d.gascomb.com/';
 
 
+	function __construct(){
+
+		if ( $_SERVER['SERVER_NAME'] == 'admin.gascomb.dev' ){
+
+			$this->enviroment = 'develop';
+
+		}else{
+
+			$this->enviroment = 'production';
+		}
+	}
+
+
 	public function get_image_path(){
 
 		if($this->enviroment == 'develop'){
