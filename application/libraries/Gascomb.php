@@ -45,7 +45,7 @@ class Gascomb {
 
 			echo 'La base de datos es '.$bd;
 
-			if ( $bd == 'defaul' ){
+			if ( $bd == 'default' ){
 
 				return $this->image_path;
 			}else if ( $bd = 'pts' ) {
@@ -72,7 +72,7 @@ class Gascomb {
 			$bd 		= $session['bd'];
 
 
-			if ( $bd == 'defaul' ){
+			if ( $bd == 'default' ){
 
 				return $this->cdn_path;
 			}else if ( $bd = 'pts' ) {
