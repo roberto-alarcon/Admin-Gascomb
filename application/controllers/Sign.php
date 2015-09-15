@@ -29,11 +29,14 @@ class Sign extends CI_Controller {
 
 	public function register(){
 
-		$this->load->model('users');
+		$this->load->model('users_2');
 		$username 	= $this->input->post('username');
 		$password 	= $this->input->post('password');
 		$bd 		= $this->input->post('sistema');
-		$result = $this->users->login($username, $password , $bd );	
+
+		echo $bd;
+
+		$result = $this->users_2->login($username, $password , $bd );	
 
 		if($result)
 	   {
