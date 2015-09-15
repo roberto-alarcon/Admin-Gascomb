@@ -43,6 +43,7 @@ class Gascomb {
 			$session 	= $ci->session->userdata('logged_in');
 			$bd 		= $session['bd'];
 
+			echo 'La base de datos es '.$bd;
 
 			if ( $bd == 'defaul' ){
 
