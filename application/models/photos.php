@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 Class Photos extends CI_Model{
 
   function __contruct(){
