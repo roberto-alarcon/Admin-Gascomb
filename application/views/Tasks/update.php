@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Asignar Actividades - Folio 30103
+            Asignar Actividades - Folio <?php echo $this->session->userdata('folio_id'); ?>
             
           </h1>
         </section>
