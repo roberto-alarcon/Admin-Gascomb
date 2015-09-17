@@ -18,6 +18,24 @@ class Tasks extends CI_Controller {
 
 	}
 
+	public function update(){
+
+		$folio_id 		= $this->session->userdata('folio_id');
+		
+		$this->load->model('floor_activities');
+		$this->floor_activities->load_folio( $folio_id );
+		$result = $this->floor_activities->load_activities_by_folio();
+
+		
+		$this->load->view('Layout/header');
+		$this->load->view('Layout/menu_folio');
+		$this->load->view('Tasks/update' , array('result' => $result ));
+		$this->load->view('Layout/footer');
+		
+
+	}
+
+
 	public function gantt(){
 
 		$employees = $this->load->library('employees');
@@ -37,7 +55,14 @@ class Tasks extends CI_Controller {
 
 	public function delete(){
 
-		echo "borramos actividad";
+		$folio_id 		= $this->session->userdata('folio_id');
+		$activity_id	= $this->input->get('id_activity', TRUE);;
+
+		$this->load->model('floor_activities');
+		$this->floor_activities->load_folio( $folio_id );
+		$this->floor_activities->delete_activity( $activity_id );
+
+		redirect('tasks/update', 'refresh');
 
 	}
 

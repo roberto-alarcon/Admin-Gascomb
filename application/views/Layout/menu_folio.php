@@ -60,6 +60,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
+                <li><a href="<?php echo base_url('index.php/tasks/update'); ?>"><i class="fa fa-circle-o"></i> Agregar / Eliminar Tareas</a></li>
                 <li><a href="<?php echo base_url('index.php/tasks'); ?>"><i class="fa fa-circle-o"></i> Asignar Actividades</a></li>
                 <li><a href="<?php echo base_url('index.php/tasks/gantt'); ?>"><i class="fa fa-circle-o"></i> Gráfica de Gantt</a></li>
               </ul>
