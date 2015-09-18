@@ -38,9 +38,27 @@ Class Floor_activities extends CI_Model{
     return $query;
 
 
+  }
+
+  function add_new_activity( $support_activity_id , $description){
+
+    $folio_id = $this->session->userdata('folio_id');
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $data = array(
+       'folio_id' => $folio_id ,
+       'support_activity_id' => $support_activity_id ,
+       'description' => $description,
+       'employee_id' => 0,
+       'comments' => '.'
+    );
+
+    $this->db->insert('floor_activities', $data); 
 
 
   }
+
 
 }
 ?>

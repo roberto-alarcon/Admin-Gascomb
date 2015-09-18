@@ -20,6 +20,12 @@
 
         }
 
+        
+        function add_new_element(){
+
+          window.location.href = "/index.php/tasks/add/";
+        }
+
         </script>
         <!-- Main content -->
         <p/>
@@ -34,7 +40,7 @@
                     <div class="input-group" style="width: 150px;">
                     
                       <div class="input-group-btn">
-                        <button class="btn btn-block btn-primary">Nueva Tarea</button></i></button>
+                        <button class="btn btn-block btn-primary" onclick="add_new_element();">Nueva Tarea</button></i></button>
                       </div>
                     </div>
                   </div>

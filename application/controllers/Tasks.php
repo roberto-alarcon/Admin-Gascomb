@@ -26,13 +26,59 @@ class Tasks extends CI_Controller {
 		$this->floor_activities->load_folio( $folio_id );
 		$result = $this->floor_activities->load_activities_by_folio();
 
-		
 		$this->load->view('Layout/header');
 		$this->load->view('Layout/menu_folio');
 		$this->load->view('Tasks/update' , array('result' => $result ));
 		$this->load->view('Layout/footer');
 		
 
+	}
+
+	public function add(){
+		
+		$query 		= $this->input->post('query');
+		$result		= array();
+
+		if( !empty($query) ){
+
+			$this->load->model('support_activities');
+			$result 	= $this->support_activities->get_activities_by_keyword( $query );
+			
+		}
+
+		// Helpers
+		$this->load->helper('form');
+
+		$this->load->view('Layout/header');
+		$this->load->view('Layout/menu_folio');
+		$this->load->view('Tasks/add' , array('result' => $result ));
+		$this->load->view('Layout/footer');
+	}
+
+	public function add_activity(){
+
+		$query 					= $this->input->post('activity');
+		$support_activity_id	= '';
+
+
+		$this->load->model('support_activities');
+		$support_activities_result = $this->support_activities->search_support_activity_by_description( $query );
+
+		foreach ($support_activities_result->result() as $row)
+	      {
+	          
+	          $support_activity_id = $row->support_activity_id;     
+	         
+	      }
+
+		if ( !empty($support_activity_id) ){
+
+			$this->load->model('floor_activities');
+			$this->floor_activities->add_new_activity( $support_activity_id , $query);
+		}
+
+
+		redirect('tasks/update', 'refresh');
 	}
 
 
