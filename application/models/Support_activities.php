@@ -31,7 +31,8 @@ Class Support_activities extends CI_Model{
 
     $session  = $this->session->userdata('logged_in');
     $bd       = $session['bd'];
-
+    $this->load->database( $bd , TRUE);
+    
     $this->db->select('support_activity_id');
     $this->db->from('support_activities');
     $this->db->where('description', $description);
