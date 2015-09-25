@@ -10,11 +10,37 @@ class Tasks extends CI_Controller {
 
 	public function index(){
 
+		$grid_array		= array();
+		$folio_id 		= $this->session->userdata('folio_id');
+		
+		$this->load->model('floor_activities');
+		$this->floor_activities->load_folio( $folio_id );
+		$result = $this->floor_activities->load_activities_by_folio();
+
+		
+		$this->load->model('employees');
+
+
+		foreach ($result->result() as $row)
+        {
+
+        	$grid_array[] =  array(
+        						'floor_activity_id' => $row->floor_activity_id,
+        						'description'		=> $row->description,
+        						'employees' 		=> $this->employees->get_name_by_id( $row->employee_id ),
+        						'status'			=> $row->status
+
+        						 );
+        }
+
+
+        
+		
 		$this->load->view('Layout/header');
 		$this->load->view('Layout/menu_folio');
-		$this->load->view('Tasks/index');
+		$this->load->view('Tasks/index' , array('grid' => $grid_array ));
 		$this->load->view('Layout/footer');
-
+		
 
 	}
 
@@ -109,6 +135,37 @@ class Tasks extends CI_Controller {
 		$this->floor_activities->delete_activity( $activity_id );
 
 		redirect('tasks/update', 'refresh');
+
+	}
+
+
+	public function mechanic(){
+
+		$folio_id 		= $this->session->userdata('folio_id');
+		
+		$this->load->model('floor_activities');
+		$this->floor_activities->load_folio( $folio_id );
+		$result = $this->floor_activities->load_activities_by_folio();
+
+		// Employees
+		$this->load->model('employees');
+		$list_employees = $this->employees->getAllEmployees();
+		
+		// Helpers
+		$this->load->helper('form');
+
+		$this->load->view('Layout/header');
+		$this->load->view('Layout/menu_folio');
+		$this->load->view('Tasks/mechanic', array('result' => $result , 'list_employees' => $list_employees));
+		$this->load->view('Layout/footer');
+
+	}
+
+	public function mechanic_add(){
+
+		$this->load->model('floor_activities');
+		$this->floor_activities->add_mechanics( $_POST );
+		redirect('tasks/', 'refresh');
 
 	}
 

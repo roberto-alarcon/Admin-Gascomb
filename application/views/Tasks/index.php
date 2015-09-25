@@ -1,4 +1,19 @@
 <!-- Content Wrapper. Contains page content -->
+       <script type="text/javascript">
+
+       function mechanic_view(){
+
+          window.location.href = "/index.php/tasks/mechanic";
+       }
+
+       function task_update(){
+          window.location.href = "/index.php/tasks/update";
+
+       }
+
+       </script> 
+
+
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -12,6 +27,47 @@
         <p/>
         <section class="content">
           
+          
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Configuración de la tarea</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                
+              </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <!--label for="exampleInputEmail1">Priodidad</label -->
+                  </div><!-- /.form-group -->
+                  </form>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                  
+                  <div class="form-group">
+                    
+                    <label>Prioridad</label>
+                    <select class="form-control select" name="activity" data-placeholder="Select a State">
+                      <option>Urgente</option>
+                      <option selected>Normal</option>
+                      <option>Baja</option>
+                    </select>
+                    
+                  </div><!-- /.form-group -->
+                  <div class="form-group" style="float:right;">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                  </div><!-- /.form-group -->
+                  </form>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+
+
+
+
           <div class="row">
             <div class="col-xs-12">
               <div class="box">
@@ -21,7 +77,10 @@
                     <div class="input-group" style="width: 150px;">
                     
                       <div class="input-group-btn">
-                        <button class="btn btn-block btn-primary">Nueva Tarea</button></i></button>
+                        <button class="btn btn-block btn-primary" onclick="task_update();">Agregar / Eliminar Tareas</button></i></button>
+                      </div>&nbsp;
+                      <div class="input-group-btn">
+                        <button class="btn btn-block btn-primary" onclick="mechanic_view();">Asignar Mecánicos</button></i></button>
                       </div>
                     </div>
                   </div>
@@ -29,7 +88,7 @@
                 <div class="box-body table-responsive no-padding">
                   <table class="table table-hover">
                     <tr>
-                      <th></th>
+                      
                       <th>Tareas</th>
                       <th>Mecánico</th>
                       <th>Fecha inicio</th>
@@ -37,76 +96,37 @@
                       <th>Fecha fin</th>
                       <th>Status</th>
                     </tr>
-                    <tr>
-                      <td><a href="#"><i class="fa fa-fw fa-remove"></a></td>
-                      <td><a href="<?php echo base_url('index.php/tasks/edit/?id=1234');?>">Cambio de frenos</a></td>
-                      <td>John Doe</td>
-                      <td>11-7-2014 10:50:34</td>
-                      <td>1 hora</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-success">En proceso</span></td>
-                      
-                    </tr>
-                    <tr>
-                      <td><a href="#"><i class="fa fa-fw fa-remove"></a></td>
-                      <td><a href="#">Afinación y verificación</a></td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td>3 hora</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-warning">Pendiente</span></td>
-                      
-                    </tr>
-                    <tr>
-                      <td><a href="#"><i class="fa fa-fw fa-remove"></a></td>
-                      <td><a href="#"> Retificador de discos</a></td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td>2 hora</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-primary">Terminada</span></td>
-                      
-                    </tr>
-                    <tr>
-                      <td><a href="#"><i class="fa fa-fw fa-remove"></a></td>
-                      <td><a href="#">Hojalateria y pintura</a></td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td>1 hora</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-danger">Cancelada</span></td>
-                      
-                    </tr>
-                    <tr>
-                      <td><a href="#"><i class="fa fa-fw fa-remove"></a></td>
-                      <td><a href="#">Afinación y verificación</a></td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td>1 hora</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-warning">Pendiente</span></td>
-                      
-                    </tr>
-                    <tr>
-                      <td><a href="<?php echo base_url( 'index.php/tasks/delete' );?>"><i class="fa fa-fw fa-remove"></a></td>
-                      <td><a href="#"> Retificador de discos</a></td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td>1 hora</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-primary">Terminada</span></td>
-                      
-                    </tr>
-                    <tr>
-                      <td><a href="#"><i class="fa fa-fw fa-remove"></a></td>
-                      <td><a href="#">Hojalateria y pintura</a></td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td>1 hora</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-danger">Cancelada</span></td>
-                      
-                    </tr>
+
+                    <?php 
+
+                      foreach ($grid as $key => $value) {
+
+                        echo '<tr>';
+                        echo '<td>'.strtoupper ($value["description"]).'</td>';
+                        echo '<td>'.strtoupper ($value["employees"]).'</td>';
+                        echo '<td></td>';
+                        echo '<td></td>';
+                        echo '<td></td>';
+                        
+                       if( $value["status"] == "" or $value["status"] == 0 ){
+                          echo '<td><span class="label label-warning">Pendiente</span></td>';
+                       }else if( $value["status"] == 1 ){
+                          echo '<td><span class="label label-success">En Proceso</span></td>';
+
+                       }else if( $value["status"] == 2 ){
+                          echo '<td><span class="label label-danger">Detenida</span></td>';
+
+                       }else if( $value["status"] == 3 ){
+                          echo '<td><span class="label label-primary">Terminada</span></td>';
+
+                       }
+                        
+                        echo  '</tr>';
+                        # code...
+                      }
+
+                    ?>
+                    
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

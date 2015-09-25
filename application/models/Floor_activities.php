@@ -60,5 +60,29 @@ Class Floor_activities extends CI_Model{
   }
 
 
+  public function add_mechanics( $arrayMechanics ){
+
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];  
+
+
+    foreach ($arrayMechanics as $key => $value){
+        
+        
+        $floor_activity_id  = $key;
+        $employees_id       = $value;
+
+        $data = array(
+               'employee_id' => $employees_id
+            );
+
+        $this->db->where('floor_activity_id', $floor_activity_id);
+        $this->db->update('floor_activities', $data);
+
+    }
+
+  }
+
+
 }
 ?>
