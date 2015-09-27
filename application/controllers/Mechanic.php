@@ -12,12 +12,12 @@ class Mechanic extends CI_Controller {
 	public function index(){
 
 		
-		$this->load->model('mechanic_activities');
-		$val = $this->mechanic_activities->dame_nombre();
-		echo $val;
-
-		$parametro = "Herminio";
-		$this->load->view('Mechanic/login' , array( 'nombre' => $parametro , 'val' => $val));
+		#$this->load->model('mechanic_activities');
+		#$val = $this->mechanic_activities->dame_nombre();
+		#$parametro = "Herminio";
+		$this->load->helper('form');
+		$this->load->view('Mechanic/login');
+		#$this->load->view('Mechanic/login' , array( 'nombre' => $parametro , 'val' => $val));
 
 	}
 
@@ -26,6 +26,43 @@ class Mechanic extends CI_Controller {
 		echo "Aqui va mi vista actividades";
 
 	}
+
+
+    public function logeame(){
+
+		$this->load->model('mechanic_activities');
+		$nip 	= $this->input->post('nip');
+		$bd = "pts";
+
+		$result = $this->mechanic_activities->login($nip , $bd );	
+
+		if($result)
+	   {
+	     $sess_array = array();
+	     foreach($result as $row)
+	     {
+	        $sess_array = array(
+	         #'username' => $row->email,
+	          'employee_id' => $row->employee_id,
+	          'name' => ucwords( strtolower($row->name.' '.$row->last_name) ),
+	          'login' => true,
+	          'bd'=> $bd
+	        );
+	        $this->session->set_userdata('logged_in', $sess_array);
+	     }
+
+
+	     // Usuario correcto 
+	     	redirect('mechanic_main', 'refresh');
+
+	    } else {
+	     
+	        redirect('mechanic', 'refresh');
+	     
+	    }
+		
+    }
+
 
 }
 ?>
