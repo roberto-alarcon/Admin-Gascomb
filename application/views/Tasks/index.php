@@ -18,7 +18,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Asignar Actividades - Folio 30103
+            Asignar Actividades - Folio <?php echo $this->session->userdata('folio_id'); ?>
             
           </h1>
         </section>
@@ -132,5 +132,98 @@
               </div><!-- /.box -->
             </div>
           </div>
+
+          
+          <!-- Comentarios -->
+           <div class="row">
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Comentarios</h3>
+                  <div class="box-tools">
+                    
+                  </div>
+                </div><!-- /.box-header -->
+                
+                <!-- Tabla comentarios -->
+                <?php
+
+                if( count($comments) > 0)
+                {
+                
+                ?>
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      
+                      <th>Fecha</th>
+                      <th>Usuario</th>
+                      <th>Comentarios</th>
+                      
+                    </tr>
+
+
+                    <?php
+
+                    foreach ($comments as $key => $value) {
+
+                        echo '<tr>';
+                        echo '<td>'.date('d/m/Y h:i:s',$value['date']).'</td>';
+                        echo '<td>'.$value['employee_name'].'</td>';
+                        echo '<td>'.$value['comments'].'</td>';
+                        echo '</tr>';
+                      # code...
+                    }
+
+                    ?>
+    
+                  </table>
+                </div><!-- /.box-body -->
+
+                <?php
+                }
+                ?>
+                <!--  Fin Tabla comentarios -->
+
+                <!-- textarea -->
+                <div class="box-body">
+                <div class="form-group">
+                  <label>Agregar nuevo comentario</label>
+                </div>
+                <?php 
+                $attributes = array('id' => 'myform');
+                echo form_open('tasks/add_comment' , $attributes); ?>
+                    <textarea id="txtcomment" name="txtcomment" class="textarea" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <input type="hidden" name="hidden_comments" id="hidden_comments" value="English">
+                    <div class="box-footer">
+                      <button type="reset" class="btn btn-primary">Cancelar</button>
+                      <button type="button" onclick="javascript:clickme()" class="btn btn-primary pull-right">Guardar</button>
+                    </div><!-- /.box-footer -->
+                </form>
+
+              </div>
+
+              <script type="text/javascript">
+
+              function clickme(){
+                
+                $('#hidden_comments').val( $('#txtcomment').val() );
+                $('#myform').submit();
+
+                console.log ( $('#txtcomment').val() );
+              }
+              </script>
+
+              </div><!-- /.box -->
+            </div>
+          </div>
+
+
+
+
+
+
+
+
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->

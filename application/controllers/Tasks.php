@@ -11,16 +11,16 @@ class Tasks extends CI_Controller {
 	public function index(){
 
 		$grid_array		= array();
+		$grid_comments	= array();
 		$folio_id 		= $this->session->userdata('folio_id');
 		
+		
+		// Listado de Mecánicos
 		$this->load->model('floor_activities');
 		$this->floor_activities->load_folio( $folio_id );
 		$result = $this->floor_activities->load_activities_by_folio();
-
 		
 		$this->load->model('employees');
-
-
 		foreach ($result->result() as $row)
         {
 
@@ -34,11 +34,32 @@ class Tasks extends CI_Controller {
         }
 
 
-        
+        // Obtenemos los comentarios
+        $this->load->model('Floor_activities_comments');
+        $this->Floor_activities_comments->load_folio( $folio_id );
+        $result_comments	= $this->Floor_activities_comments->get_all_comments_by_folio();
+
+        foreach ($result_comments->result() as $row) {
+
+        	$grid_comments[]  = array(
+
+        						'floor_activities_comments_id' => $row->floor_activities_comments_id,
+        						'folio_id' => $row->folio_id,
+        						'date' => $row->date,
+        						'employee_id' => $row->employee_id,
+        						'employee_name' => $this->employees->get_name_by_id($row->employee_id),
+        						'comments' => $row->comments
+
+        		);
+        }
+
+        // Helpers
+		$this->load->helper('form');
+
 		
 		$this->load->view('Layout/header');
 		$this->load->view('Layout/menu_folio');
-		$this->load->view('Tasks/index' , array('grid' => $grid_array ));
+		$this->load->view('Tasks/index' , array('grid' => $grid_array , 'comments' => $grid_comments ));
 		$this->load->view('Layout/footer');
 		
 
@@ -128,7 +149,7 @@ class Tasks extends CI_Controller {
 	public function delete(){
 
 		$folio_id 		= $this->session->userdata('folio_id');
-		$activity_id	= $this->input->get('id_activity', TRUE);;
+		$activity_id	= $this->input->get('id_activity', TRUE);
 
 		$this->load->model('floor_activities');
 		$this->floor_activities->load_folio( $folio_id );
@@ -166,6 +187,20 @@ class Tasks extends CI_Controller {
 		$this->load->model('floor_activities');
 		$this->floor_activities->add_mechanics( $_POST );
 		redirect('tasks/', 'refresh');
+
+	}
+
+	public function add_comment(){
+
+		$comment	= $this->input->post('hidden_comments', TRUE);
+		$folio_id 	= $this->session->userdata('folio_id');
+
+
+		$this->load->model('floor_activities_comments');
+        $this->floor_activities_comments->load_folio( $folio_id );
+        $this->floor_activities_comments->insert_comment( $comment );
+
+        redirect('tasks/', 'refresh');
 
 	}
 
