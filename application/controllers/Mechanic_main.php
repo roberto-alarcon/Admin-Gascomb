@@ -11,8 +11,9 @@ class Mechanic_main extends CI_Controller {
 
 	public function index(){
 		
+		$this->load->view('Mechanic/header');
 		$this->load->view('Mechanic/main');
-
+        $this->load->view('Mechanic/footer');
 	}
 
 }
