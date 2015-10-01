@@ -27,8 +27,8 @@
           <ul class="sidebar-menu">
             <li class="header">GENERAL</li>
             <li>
-              <a href="pages/calendar.html">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+              <a href="<?php echo base_url('index.php/dashboard'); ?>">
+                <i class="fa fa-dashboard"></i> <span>Regresar</span>
                 <small class="label pull-right bg-red">3</small>
               </a>
             </li>

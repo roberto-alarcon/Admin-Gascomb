@@ -36,7 +36,31 @@
     <!-- Date picker-->
     <link rel="stylesheet" href="<?php echo base_url('assets/datepicker/css/datepicker.css'); ?>"/>
 
+    <style type="text/css">
 
+    .glyphicon-refresh-animate {
+        -animation: spin .7s infinite linear;
+        -ms-animation: spin .7s infinite linear;
+        -webkit-animation: spinw .7s infinite linear;
+        -moz-animation: spinm .7s infinite linear;
+    }
+
+    @keyframes spin {
+        from { transform: scale(1) rotate(0deg);}
+        to { transform: scale(1) rotate(360deg);}
+    }
+      
+    @-webkit-keyframes spinw {
+        from { -webkit-transform: rotate(0deg);}
+        to { -webkit-transform: rotate(360deg);}
+    }
+
+    @-moz-keyframes spinm {
+        from { -moz-transform: rotate(0deg);}
+        to { -moz-transform: rotate(360deg);}
+    }
+    
+    </style>
 
 
     <!-- jQuery 2.1.4 -->
@@ -46,6 +70,11 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
       $.widget.bridge('uibutton', $.ui.button);
+    </script>
+
+    <!-- My Scripts -->
+     <script src=" <?php echo base_url('assets/myScripts/admin-gascomb.js'); ?>"></script>
+
     </script>
     <!-- Bootstrap 3.3.5 -->
     <script src=" <?php echo base_url('assets/bootstrap/js/bootstrap.min.js'); ?>"></script>
@@ -79,6 +108,8 @@
 
     <script src=" <?php echo base_url('assets/datepicker/js/bootstrap-datepicker.js'); ?>"></script>
 
+    <!-- My Scripts -->
+     <script src=" <?php echo base_url('assets/myScripts/admin-gascomb.js'); ?>"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

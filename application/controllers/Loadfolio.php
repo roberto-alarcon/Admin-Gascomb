@@ -29,5 +29,22 @@ class Loadfolio extends CI_Controller {
 
 	}
 
+	public function tasks(){
+
+		$this->load->library('folio');
+		$this->folio->folio_load( $this->input->get('folio_id') );
+		
+		if ( $this->folio->folio_exists() ){
+
+			redirect('tasks/', 'refresh');
+
+		}else{
+
+			echo "El folio no existe";
+		}
+
+		
+	}
+
 }
 ?>
