@@ -22,6 +22,11 @@ Class Floor_activities_folio extends CI_Model{
   }
 
   
+  public function load_folio( $folio_id ){
+
+    $this->folio_id = $folio_id;
+  }
+
   public function add_folio( $folio_id ){
 
     $session      = $this->session->userdata('logged_in');
@@ -44,6 +49,20 @@ Class Floor_activities_folio extends CI_Model{
 
   }
 
+  public function get_all_info_by_folio( ){
+
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $this->load->database( $bd , TRUE);
+    $this->db->select('*');
+    $this->db->from('floor_activities_folio');
+    $this->db->where('folio_id', $this->folio_id );
+    $query = $this->db->get();
+    return $query;
+
+  }
+
 
   public function get_all_folios_by_employee( ){
 
@@ -58,6 +77,23 @@ Class Floor_activities_folio extends CI_Model{
     $this->db->order_by("time_start", "desc");
     $query = $this->db->get();
     return $query;
+
+  }
+
+  public function update_config_by_folio( $priority , $time_start , $time_end ){
+
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $data = array(
+               'priority' => $priority,
+               'time_start' => $time_start,
+               'time_end' => $time_end
+            );
+
+    $this->load->database( $bd , TRUE);
+    $this->db->where('folio_id', $this->folio_id);
+    $this->db->update('floor_activities_folio', $data);
 
   }
  

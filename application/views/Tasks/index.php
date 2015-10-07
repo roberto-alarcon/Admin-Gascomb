@@ -27,7 +27,7 @@
         <p/>
         <section class="content">
           
-          
+      
           <div class="box box-default">
             <div class="box-header with-border">
               <h3 class="box-title">Configuración de la tarea</h3>
@@ -41,13 +41,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     
-
+                      <?php echo form_open('tasks/add_config'); ?>
                       <div class="form-group">
                         <label>Prioridad</label>
-                        <select class="form-control select" name="activity" data-placeholder="Select a State">
-                          <option>Urgente</option>
-                          <option selected>Normal</option>
-                          <option>Baja</option>
+                        <select class="form-control select" name="priority" data-placeholder="Select a State">
+                          <option value="0" <?php echo ($config[0]['priority'] == 0 ? 'selected' : '');  ?> >Urgente</option>
+                          <option value="1" <?php echo ($config[0]['priority'] == 1 ? 'selected' : '');  ?> >Normal</option>
+                          <option value="2" <?php echo ($config[0]['priority'] == 2 ? 'selected' : '');  ?> >Baja</option>
                         </select>
                         
                       </div><!-- /.form-group -->
@@ -55,24 +55,21 @@
                       <table class="table">
                         <thead>
                           <tr>
-                            <th>Fecha de inicio <a href="#" onclick="javascript:time_start();" class="btn small" id="dp4" data-date-format="yyyy-mm-dd" data-date="2015-09-30">Cambiar</a></th>
-                            <th>Fecha de entrega <a href="#" onclick="javascript:time_end();" class="btn small" id="dp5" data-date-format="yyyy-mm-dd" data-date="2015-09-30">Cambiar</a></th>
+                            <th>Fecha de inicio <a href="#" onclick="javascript:time_start();" class="btn small" id="dp4" data-date-format="yyyy-mm-dd" data-date="<?php echo date('Y-m-d' , $config[0]['time_start']); ?>">Cambiar</a></th>
+                            <th>Fecha de entrega <a href="#" onclick="javascript:time_end();" class="btn small" id="dp5" data-date-format="yyyy-mm-dd" data-date="<?php echo date('Y-m-d' , $config[0]['time_end']); ?>">Cambiar</a></th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td id="startDate">2015-09-30</td>
-                            <td id="endDate">2015-09-30</td>
+                            <td id="startDate"><?php echo date('Y-m-d' , $config[0]['time_start']); ?></td>
+                            <td id="endDate"><?php echo date('Y-m-d' , $config[0]['time_end']); ?></td>
                           </tr>
                         </tbody>
                       </table>
-                      <input type="hidden" name="time_start_input" id="time_start_input" value="">
-                      <input type="hidden" name="time_end_input" id="time_end_input" value="">
+                      <input type="hidden" name="time_start_input" id="time_start_input" value="<?php echo date('Y-m-d' , $config[0]['time_start']); ?>">
+                      <input type="hidden" name="time_end_input" id="time_end_input" value="<?php echo date('Y-m-d' , $config[0]['time_end']); ?>">
                   </div><!-- /.form-group -->
-                  </form>
-
-
-                  
+ 
 
                 </div><!-- /.col -->
                 <div class="col-md-6">
@@ -83,7 +80,6 @@
                     
                   </div><!-- /.form-group -->
 
-                  </form>
                 </div><!-- /.col -->
               </div><!-- /.row -->
               <div class="form-group" style="float:right;">
@@ -91,6 +87,7 @@
                   </div><!-- /.form-group -->
             </div><!-- /.box-body -->
           </div><!-- /.box -->
+           </form>
 
 
 

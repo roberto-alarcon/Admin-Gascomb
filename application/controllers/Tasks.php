@@ -14,7 +14,21 @@ class Tasks extends CI_Controller {
 		$grid_comments	= array();
 		$folio_id 		= $this->session->userdata('folio_id');
 		
+		// Informacion de la configuracion
+		$this->load->model('floor_activities_folio');
+		$this->floor_activities_folio->load_folio( $folio_id );
+		$config_result 	= $this->floor_activities_folio->get_all_info_by_folio();
+		$config_array 	= array();
+		foreach ($config_result->result() as $row) {
 		
+			$config_array[] = array(
+						'status' => $row->status,
+						'priority' => $row->priority,
+						'time_start' => $row->time_start,
+						'time_end'	=> $row->time_end
+				);
+
+		}
 		// Listado de Mecánicos
 		$this->load->model('floor_activities');
 		$this->floor_activities->load_folio( $folio_id );
@@ -59,7 +73,7 @@ class Tasks extends CI_Controller {
 		
 		$this->load->view('Layout/header');
 		$this->load->view('Layout/menu_folio');
-		$this->load->view('Tasks/index' , array('grid' => $grid_array , 'comments' => $grid_comments ));
+		$this->load->view('Tasks/index' , array('grid' => $grid_array , 'comments' => $grid_comments , 'config' =>$config_array));
 		$this->load->view('Layout/footer');
 		
 
@@ -201,6 +215,27 @@ class Tasks extends CI_Controller {
         $this->floor_activities_comments->insert_comment( $comment );
 
         redirect('tasks/', 'refresh');
+
+	}
+
+	public function add_config(){
+
+		$priority 	= $this->input->post('priority', TRUE);
+		$time_start	= $this->input->post('time_start_input', TRUE);
+		$time_end	= $this->input->post('time_end_input', TRUE);
+
+		$unix_time_start 	= strtotime($time_start);
+		$unix_time_end 		= strtotime($time_end);
+
+
+		$folio_id 		= $this->session->userdata('folio_id');
+		
+		// Informacion de la configuracion
+		$this->load->model('floor_activities_folio');
+		$this->floor_activities_folio->load_folio( $folio_id );
+		$this->floor_activities_folio->update_config_by_folio( $priority , $unix_time_start , $unix_time_end );
+		
+		redirect('tasks/', 'refresh');
 
 	}
 
