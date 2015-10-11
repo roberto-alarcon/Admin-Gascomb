@@ -18,3 +18,12 @@ CREATE TABLE `floor_activities_folio` (
   PRIMARY KEY (`floor_activities_folio_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
+CREATE TABLE `sistema_gascomb`.`floor_activities_timecontrol` (
+  `floor_activities_timecontrol_id` INT NOT NULL AUTO_INCREMENT,
+  `folio_id` INT NULL,
+  `employee_id` INT NULL,
+  `time` INT(12) NULL,
+  `code` VARCHAR(100) NULL,
+  `comments` TEXT NULL,
+  PRIMARY KEY (`floor_activities_timecontrol_id`));
+
