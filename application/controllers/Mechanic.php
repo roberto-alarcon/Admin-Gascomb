@@ -32,32 +32,33 @@ class Mechanic extends CI_Controller {
 
 		$this->load->model('mechanic_activities');
 		$nip 	= $this->input->post('nip');
-		$bd = "pts";
+		$bd = "default";
+		$bd2 = "default";
 
 		$result = $this->mechanic_activities->login($nip , $bd );	
 
 		if($result)
 	   {
-	     $sess_array = array();
-	     foreach($result as $row)
-	     {
-	        $sess_array = array(
-	         #'username' => $row->email,
-	          'employee_id' => $row->employee_id,
-	          'name' => ucwords( strtolower($row->name.' '.$row->last_name) ),
-	          'login' => true,
-	          'bd'=> $bd
-	        );
-	        $this->session->set_userdata('logged_in', $sess_array);
-	     }
+		     $sess_array = array();
+		     foreach($result as $row){
+		        $sess_array = array(
+		         #'username' => $row->email,
+		          'employee_id' => $row->employee_id,
+		          'name' => ucwords( strtolower($row->name.' '.$row->last_name) ),
+		          'login' => true,
+		          'bd'=> $bd,
+		          'bd2'=> $bd2
+		        );
+		        $this->session->set_userdata('logged_in', $sess_array);
+		     }
 
 
 	     // Usuario correcto 
-	     	redirect('mechanic_main', 'refresh');
+	     		redirect('mechanic_main', 'refresh');
 
 	    } else {
 	     
-	        redirect('mechanic', 'refresh');
+	        	redirect('mechanic', 'refresh');
 	     
 	    }
 		

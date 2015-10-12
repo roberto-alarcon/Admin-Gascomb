@@ -12,6 +12,16 @@ body{
 .small-data {
   font-size: 11px;
 }
+.medio{
+  width: 50%;
+  float:left;
+}
+.left{
+  float:left;
+}
+.right{
+  float:right;
+}
 .small-data span {
   font-size: 28px;
   font-weight:bold;
@@ -78,3 +88,38 @@ body{
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+.box{
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.box-title {
+    display: inline-block;
+    font-size: 18px;
+    margin: 0;
+    line-height: 1;
+}
+
+.box-header {
+    color: #444;
+    display: block;
+    padding: 10px;
+    position: relative;
+}
+
+.space-head{
+  margin-top: 10px;
+}
+
+.box-title2 {
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 22px;
+}
