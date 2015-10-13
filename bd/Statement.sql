@@ -26,4 +26,3 @@ CREATE TABLE `sistema_gascomb`.`floor_activities_timecontrol` (
   `code` VARCHAR(100) NULL,
   `comments` TEXT NULL,
   PRIMARY KEY (`floor_activities_timecontrol_id`));
-
