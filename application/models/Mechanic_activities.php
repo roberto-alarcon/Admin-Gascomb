@@ -90,14 +90,54 @@
     function findDataFolio($folio){
 
         $this->load->database( "default" , TRUE);
-        $this -> db -> select('dependency_id,received_by,entry_date,tower,parking_space,type_service');
+        /*$this -> db -> select('dependency_id,received_by,entry_date,tower,parking_space,type_service');
         $this -> db -> from('folios');
+        $this -> db -> where('folio_id', $folio);
+        $this -> db -> limit(100);*/
+        $this -> db-> select('f.dependency_id,f.received_by,f.entry_date,f.tower,f.parking_space,f.type_service,e.name,e.last_name,sa.name as service_description');
+        $this -> db -> from('folios as f');
+        $this -> db -> join('employees as e','e.employee_id = f.received_by','INNER');
+        $this -> db -> join('support_type_activities as sa','sa.support_type_activities_id = f.type_service','INNER');
         $this -> db -> where('folio_id', $folio);
         $this -> db -> limit(100);
         
         return $this -> db-> get();
       
     }
+
+    function findLeaderEmployee($folio){
+        $this->load->database( "default" , TRUE);
+        
+        $this -> db -> distinct();
+        $this -> db -> select('leader_employee_id');
+        $this -> db -> from('floor_activities_folio');
+        $this -> db -> where('folio_id', $folio);
+        $this -> db -> limit(1);
+
+        return $this -> db -> get();
+  
+    }
+
+    function findNameEmployee($id){
+
+        $this->load->database( "default" , TRUE);
+        $this -> db -> select('name,last_name');
+        $this -> db -> from('employees');
+        $this -> db -> where('employee_id', $id);
+        $this -> db -> limit(1);
+        $query = $this -> db-> get();
+
+        $name = "";
+
+        foreach ($query->result() as $row)
+        {
+            $name = $row->name.' '.$row->last_name;
+        }
+
+        return $name;      
+      
+    }
+
 
     /*function get_departments(){
         $sql = $this->db->query('SELECT departmentName FROM department ORDER BY departmentName ASC');

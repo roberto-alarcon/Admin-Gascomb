@@ -9,7 +9,7 @@ if(count($resultado)<>0){
 		#echo $k.": ".$res;
 		foreach($res as $k2 => $folio){
 			if ($k2 == "folio"){
-				$ff = $folio;
+				$fol = $folio;
 			}
 			if ( $k2 == "actividades" && count($folio) > 0){
                 $activities = array();
@@ -22,7 +22,12 @@ if(count($resultado)<>0){
                    $entry_date = $dataFolio['entry_date'];
                    $tower = $dataFolio['tower'];
                    $parking_space = $dataFolio['parking_space'];
+                   $received_by = $dataFolio['name'] . " " .$dataFolio['last_name'];
+                   $service_description = $dataFolio['service_description'];
 				}
+			}
+			if ($k2 == "leadername"){
+				$leader = $folio;
 			}
 
 		}
@@ -39,11 +44,11 @@ if(count($resultado)<>0){
 					  <img src="http://i2.gascomb.com/37763/_qrcode/qrcode.png" border="0" title="" />
 					</td>
 					<td class="active small-data">
-					  Folio <span><?=$ff?></span><br /><br />
-					  Fecha de ingreso:<?=$entry_date?><br />
-					  Tipo de Servicio:<br />
-					  Recibido por: <br />
-					  Jefe de mecanicos:
+					  Folio <span><?=$fol?></span><br /><br />
+					  Fecha de ingreso: <?=$entry_date?><br />
+					  Tipo de Servicio: <?=$service_description?> <br />
+					  Recibido por: <?=$received_by?><br />
+					  Jefe de mecanicos: <?=$leader?>
 					</td>				
 					<!--<td class="success">dfdf</td>-->
 					<td class="active">

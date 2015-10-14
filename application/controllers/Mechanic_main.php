@@ -22,16 +22,20 @@ class Mechanic_main extends CI_Controller {
                 $foliosValidos[$c]['folio'] = $row->folio_id;
                 
                 $ActividadesMechanic = $this->mechanic_activities->findActividadesFolio($row->folio_id); 
-                /*foreach ($ActividadesMechanic->result() as $clave => $row2){
-                  
-                    $foliosValidos[$c]['actividades'][$clave] = $row2->description;
-
-                }*/
                 $foliosValidos[$c]['actividades'] = $ActividadesMechanic->result();
 
                 $DatasFolio = $this->mechanic_activities->findDataFolio($row->folio_id);
                 $foliosValidos[$c]['datos_folio'] = $DatasFolio->result();
 
+                $LeaderId = $this->mechanic_activities->findLeaderEmployee($row->folio_id);
+                if ($LeaderId){
+                    foreach ($LeaderId->result() as $k1 => $row){
+                       $LeaderName = $this->mechanic_activities->findNameEmployee($row->leader_employee_id);
+                       $foliosValidos[$c]['leadername'] = $LeaderName;
+                    }
+                    
+                }
+ 
                 $c++;
             }
         }
