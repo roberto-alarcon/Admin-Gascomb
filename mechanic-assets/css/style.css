@@ -10,7 +10,7 @@ body{
   font-family: 'Roboto', sans-serif;
 }
 .small-data {
-  font-size: 10px;
+  font-size: 11px;
 }
 .medio{
   width: 50%;
@@ -34,7 +34,7 @@ body{
 .head_services {
   font-size: 11px;
   width:100%;
-  background-color:#2ECCFA;
+  background-color:#000;
   color:#FFF;
   text-align:center;
 }
@@ -45,24 +45,30 @@ body{
   color:#FFF;
   text-align:center;
 }
-.head_services {
+.head_priority {
   font-size: 11px;
   width:100%;
   color:#FFF;
+  background-color:#000;
   text-align:center;
 }
 .priority_red{
-  background-color:#FF0040;
+  background-color:#F99299;
 }
 .priority_green{
+  background-color:#A1FD82;
 }
 .priority_yellow{
+  background-color:#FEF055;
 }
 .center{
   text-align:center;
 }
 .red {
   color:#FF0040;
+}
+.yellow {
+  color:#C5BC1A;
 }
 .hide {
   display:none;

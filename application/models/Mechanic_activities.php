@@ -60,7 +60,6 @@
         $this -> db -> limit(100);
 
         $query = $this -> db -> get();
-
         foreach ($query->result() as $row)
         {
             $time_start = date('d/m/Y',$row->time_start);
@@ -109,7 +108,7 @@
         $this->load->database( "default" , TRUE);
         
         $this -> db -> distinct();
-        $this -> db -> select('leader_employee_id');
+        $this -> db -> select('leader_employee_id,priority');
         $this -> db -> from('floor_activities_folio');
         $this -> db -> where('folio_id', $folio);
         $this -> db -> limit(1);
@@ -138,6 +137,17 @@
       
     }
 
+    function findCommentsFolio($folio){
+        $this->load->database( "default" , TRUE);
+        
+        $this -> db -> select('date,employee_id,comments');
+        $this -> db -> from('floor_activities_comments');
+        $this -> db -> where('folio_id', $folio);
+        $this -> db -> limit(100);
+
+        return $this -> db -> get();
+  
+    }
 
     /*function get_departments(){
         $sql = $this->db->query('SELECT departmentName FROM department ORDER BY departmentName ASC');
