@@ -140,8 +140,14 @@
     function findCommentsFolio($folio){
         $this->load->database( "default" , TRUE);
         
-        $this -> db -> select('date,employee_id,comments');
+        /*$this -> db -> select('date,employee_id,comments');
         $this -> db -> from('floor_activities_comments');
+        $this -> db -> where('folio_id', $folio);
+        $this -> db -> limit(100);*/
+
+        $this -> db -> select('fa.date,fa.employee_id,fa.comments,e.name,e.last_name');
+        $this -> db -> from('floor_activities_comments as fa');
+        $this -> db -> join('employees as e','e.employee_id = fa.employee_id','INNER');
         $this -> db -> where('folio_id', $folio);
         $this -> db -> limit(100);
 

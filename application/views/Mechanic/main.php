@@ -1,6 +1,8 @@
 <?php
     $resultado = json_decode($resultado, true);
 	#echo "<pre>"; print_r($resultado); echo "</pre>"; #die();
+	#$cdn_path		= $this->gascomb->get_cdn_path();
+	#$path_pdf 		= $cdn_path.$folio_id.'/pdf/'.$folio_id.'.pdf';
 ?>
 	<div class="container">
 <?php	
@@ -91,7 +93,7 @@ if(count($resultado)<>0){
 					   <div class="small-data medio right">
 					   	    <button type="button" class="btn btn-info btn-xs">Ampliación</button>
 					   	    <button type="button" class="btn btn-warning btn-xs">Requisición</button>
-					   	    <button type="button" class="btn btn-default btn-xs">PDF</button>
+					   	    <button type="button" class="btn btn-default btn-xs pdf" data-id="<?=$fol?>">PDF</button>
 					   </div>
 					   &nbsp;<br />
 					   <div class="head_services">SERVICIOS A REALIZAR</div>
@@ -153,8 +155,8 @@ if(count($resultado)<>0){
 												foreach ($comments as $k4 => $comment) {
 						                    ?>
 						                    <tr>
-						                      <td><?=$comment['date'];?></td>
-						                      <td><?=$comment_user = $comment['employee_id'];?></td>
+						                      <td><?=date('d/m/Y', $comment['date']);?></td>
+						                      <td><?=$comment_user = $comment['name'] . " " .$comment['last_name'];?></td>
 						                      <td><?=$comment['comments'];?></td>	
 						                    </tr>
 						                    <?php
@@ -197,6 +199,23 @@ if(count($resultado)<>0){
 }
 
 ?>	
+		<div class="modal fade" id="myModal2" role="dialog">
+			<div class="modal-dialog">
+			  <!-- Modal content-->
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  <h4 class="modal-title">Detalles del Folio</h4>
+					</div>
+					<div class="modal-body">
+					  <!---->
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					</div>
+				  </div>
+			</div>
+		</div>
 	</div>		
 
-?>
+
