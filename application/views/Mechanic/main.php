@@ -9,6 +9,7 @@
 if(count($resultado)<>0){
 	foreach ($resultado as $k => $res){
 		#echo $k.": ".$res;
+		$comments = array();
 		foreach($res as $k2 => $folio){
 			if ($k2 == "company"){
 				$company = $folio;
@@ -58,11 +59,11 @@ if(count($resultado)<>0){
 
 				}
 			}
-			if ($k2 == "comments" && count($folio) > 0){
-				$comments = array();
-				$comments = $folio;
-			}
 
+			
+			if ($k2 == "comments"){
+                $comments = $folio;
+			}
 		}
 
 ?>
@@ -151,7 +152,7 @@ if(count($resultado)<>0){
 						                      <th>Comentarios</th> 
 						                    </tr>
 						                    <?php
-											  if(count($comments)> 0){	
+											  if( count($comments) > 0 ){
 												foreach ($comments as $k4 => $comment) {
 						                    ?>
 						                    <tr>
@@ -161,7 +162,7 @@ if(count($resultado)<>0){
 						                    </tr>
 						                    <?php
 												}
-											  } 
+											  }
 						                    ?>
 						                </tbody>   
 					                  </table>  
@@ -190,7 +191,7 @@ if(count($resultado)<>0){
 			  </div>
 			</div>
 		</div>	
-<?php					
+<?php					 
 
 	}
 

@@ -45,15 +45,36 @@
         $this -> db -> where('employee_id', $this->id_employee);
         #$this -> db -> where('status =', '1');
         $this -> db -> limit(100);
+
         return $this -> db-> get();
 
         #return $query->result();
       
     }
 
-    function findFechasFolio($folio){
+    function findFoliosMechanicPts(){
+      
+        $ci =& get_instance();
+        $session = $ci->session->userdata('logged_in');
+        $this->id_employee = $session['employee_id'];      
+
+        $this->load->database( "pts" , TRUE);
+        $this -> db -> distinct();
+        $this -> db -> select('folio_id');
+        $this -> db -> from('floor_activities');
+        $this -> db -> where('employee_id', $this->id_employee);
+        #$this -> db -> where('status =', '1');
+        $this -> db -> limit(100);
+
+        return $this -> db-> get();
+
+        #return $query->result();
+      
+    }
+
+    function findFechasFolio($folio,$bd){
         $this->hoy = time();
-        $this->load->database( "default" , TRUE);
+        $this->load->database( $bd , TRUE);
         $this -> db -> select('time_start,leader_employee_id,priority');
         $this -> db -> from('floor_activities_folio');
         $this -> db -> where('folio_id', $folio);
@@ -72,9 +93,9 @@
   
     }
 
-    function findActividadesFolio($folio){
+    function findActividadesFolio($folio,$bd){
 
-        $this->load->database( "default" , TRUE);
+        $this->load->database( $bd , TRUE);
         $this -> db -> select('floor_activity_id,description,status');
         $this -> db -> from('floor_activities');
         $this -> db -> where('folio_id', $folio);
@@ -86,9 +107,9 @@
       
     }
 
-    function findDataFolio($folio){
+    function findDataFolio($folio,$bd){
 
-        $this->load->database( "default" , TRUE);
+        $this->load->database( $bd , TRUE);
         /*$this -> db -> select('dependency_id,received_by,entry_date,tower,parking_space,type_service');
         $this -> db -> from('folios');
         $this -> db -> where('folio_id', $folio);
@@ -104,8 +125,8 @@
       
     }
 
-    function findLeaderEmployee($folio){
-        $this->load->database( "default" , TRUE);
+    function findLeaderEmployee($folio,$bd){
+        $this->load->database( $bd , TRUE);
         
         $this -> db -> distinct();
         $this -> db -> select('leader_employee_id,priority');
@@ -117,9 +138,9 @@
   
     }
 
-    function findNameEmployee($id){
+    function findNameEmployee($id,$bd){
 
-        $this->load->database( "default" , TRUE);
+        $this->load->database( $bd , TRUE);
         $this -> db -> select('name,last_name');
         $this -> db -> from('employees');
         $this -> db -> where('employee_id', $id);
@@ -137,8 +158,8 @@
       
     }
 
-    function findCommentsFolio($folio){
-        $this->load->database( "default" , TRUE);
+    function findCommentsFolio($folio,$bd){
+        $this->load->database( $bd , TRUE);
         
         /*$this -> db -> select('date,employee_id,comments');
         $this -> db -> from('floor_activities_comments');
