@@ -1,8 +1,6 @@
 <?php
     $resultado = json_decode($resultado, true);
-	#echo "<pre>"; print_r($resultado); echo "</pre>"; #die();
-	#$cdn_path		= $this->gascomb->get_cdn_path();
-	#$path_pdf 		= $cdn_path.$folio_id.'/pdf/'.$folio_id.'.pdf';
+	#echo "<pre>"; print_r($resultado); echo "</pre>"; die();
 ?>
 	<div class="container">
 <?php	
@@ -13,6 +11,12 @@ if(count($resultado)<>0){
 		foreach($res as $k2 => $folio){
 			if ($k2 == "company"){
 				$company = $folio;
+			}
+			if ($k2 == "qrcode"){
+				$qrcode = $folio;
+			}
+			if ($k2 == "pdf"){
+				$pdf = $folio;
 			}
 		    if ($k2 == "folio"){
 				$fol = $folio;
@@ -59,7 +63,6 @@ if(count($resultado)<>0){
 
 				}
 			}
-
 			
 			if ($k2 == "comments"){
                 $comments = $folio;
@@ -75,7 +78,7 @@ if(count($resultado)<>0){
 				<tbody>
 				  <tr>
 					<td class="col-md-1">
-					  <img src="http://i2.gascomb.com/37763/_qrcode/qrcode.png" border="0" title="" />
+					  <img src="<?=$qrcode?>" border="0" title="" />
 					</td>
 					<td class="col-md-3 small-data">
 					  Folio <span><?=$fol?></span><br /><br />
@@ -94,7 +97,7 @@ if(count($resultado)<>0){
 					   <div class="small-data medio right">
 					   	    <button type="button" class="btn btn-info btn-xs">Ampliación</button>
 					   	    <button type="button" class="btn btn-warning btn-xs">Requisición</button>
-					   	    <button type="button" class="btn btn-default btn-xs pdf" data-id="<?=$fol?>">PDF</button>
+					   	    <button type="button" class="btn btn-default btn-xs pdf" data-pdf="<?=$pdf?>">PDF</button>
 					   </div>
 					   &nbsp;<br />
 					   <div class="head_services">SERVICIOS A REALIZAR</div>
@@ -111,6 +114,15 @@ if(count($resultado)<>0){
 									</td>
 									<td class="col-md-3">
 									  <div align="center">
+									  	<?php
+                                           if ($activity['status']=="1"){
+
+                                           } else if ($activity['status']=="2"){
+
+                                           } else if ($activity['status']=="3"){
+                                           	
+                                           }
+									  	?>
 										  <button type="button" class="btn btn btn-success btn-xs">INICIAR</button>
 										  <button type="button" class="btn btn-danger btn-xs finalizar" id="<?=$activity['floor_activity_id']?>">Finalizar</button>
 									  </div> 

@@ -14,6 +14,9 @@ class Mechanic_main extends CI_Controller {
 
 		$foliosMechanic = $this->mechanic_activities->findFoliosMechanic(); 
         $foliosMechanicPts = $this->mechanic_activities->findFoliosMechanicPts(); 
+        $this->load->library('utilsm');
+        $path_qr_gascomb = $this->utilsm->get_cdn_path("gascomb");
+        $path_qr_pts = $this->utilsm->get_cdn_path("pts");
         $foliosValidos = array();
         $foliosValidosP = array();
         $c = 0;
@@ -26,7 +29,8 @@ class Mechanic_main extends CI_Controller {
             if ($folioValido){
                 $foliosValidos[$c]['company'] = "Gascomb";
                 $foliosValidos[$c]['folio'] = $row->folio_id;
-
+                $foliosValidos[$c]['qrcode'] = $path_qr_gascomb.$row->folio_id."/_qrcode/qrcode.png";
+                $foliosValidos[$c]['pdf'] = $path_qr_gascomb.$row->folio_id."/pdf/".$row->folio_id.".pdf";
                 
                 $ActividadesMechanic = $this->mechanic_activities->findActividadesFolio($row->folio_id,$bd); 
                 $foliosValidos[$c]['actividades'] = $ActividadesMechanic->result();
@@ -56,7 +60,8 @@ class Mechanic_main extends CI_Controller {
             if ($folioValidoP){
                 $foliosValidosP[$p]['company'] = "Pts Service";
                 $foliosValidosP[$p]['folio'] = $row3->folio_id;
-
+                $foliosValidosP[$p]['qrcode'] = $path_qr_pts.$row3->folio_id."/_qrcode/qrcode.png";
+                $foliosValidosP[$p]['pdf'] = $path_qr_pts.$row3->folio_id."/pdf/".$row3->folio_id.".pdf";
                 
                 $ActividadesMechanicP = $this->mechanic_activities->findActividadesFolio($row3->folio_id,$bd2); 
                 $foliosValidosP[$p]['actividades'] = $ActividadesMechanicP->result();
@@ -80,8 +85,11 @@ class Mechanic_main extends CI_Controller {
                 $p++;
             }
         }
+        
 
-        $foliosValidosT = array_merge($foliosValidos,$foliosValidosP);
+        $foliosValidosT = array_merge($foliosValidos,$foliosValidosP);   
+
+        #$foliosValidosT = array_merge($foliosValidos,$foliosValidosP);
         $foliosValidosT = json_encode($foliosValidosT);
 		$this->load->view('Mechanic/header');
 		$this->load->view('Mechanic/main',array('resultado' => $foliosValidosT));

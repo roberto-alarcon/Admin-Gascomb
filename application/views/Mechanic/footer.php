@@ -30,8 +30,9 @@
 
 	    //pdf modal
 		$(".pdf").click(function(){
-		  var id = $(this).attr("data-id");
-		  var url_media = "http://github-develop.gascomb.com/user_interface/mecanicos/"+id+"/pdf/"+id+".pdf";
+		  var id = $(this).attr("data-pdf");
+		  //var url_media = "http://github-develop.gascomb.com/user_interface/mecanicos/"+id+"/pdf/"+id+".pdf";
+		  var url_media = id;
 		  $(".modal-body").html('<iframe width="100%" height="610" frameborder="0" scrolling="yes" allowtransparency="true" src="'+url_media+'"></iframe>');
 		  $('#myModal2').modal('show');
 		});	
