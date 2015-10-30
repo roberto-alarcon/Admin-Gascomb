@@ -115,16 +115,17 @@ if(count($resultado)<>0){
 									<td class="col-md-3">
 									  <div align="center">
 									  	<?php
-                                           if ($activity['status']=="1"){
-
-                                           } else if ($activity['status']=="2"){
-
-                                           } else if ($activity['status']=="3"){
-                                           	
-                                           }
+                                           if ($activity['status']=="1"){ ?>
+											  <button type="button" class="btn btn btn-success btn-xs tostart" datastart="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">INICIAR</button>
+											  <button type="button" class="btn btn-danger btn-xs" disabled="disabled">Finalizar</button>
+                                           <?php } else if ($activity['status']=="2"){ ?>
+											  <button type="button" class="btn btn btn-success btn-xs tostop" datastop="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">Detener</button>
+											  <button type="button" class="btn btn-danger btn-xs tofinalize" dataend="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">Finalizar</button>
+                                           <?php } else if ($activity['status']=="3"){ ?>
+											  <button type="button" class="btn btn btn-success btn-xs restart" datarestart="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">Reiniciar</button>
+											  <button type="button" class="btn btn-danger btn-xs"  disabled="disabled">Finalizar</button>                                           	
+                                           <?php }
 									  	?>
-										  <button type="button" class="btn btn btn-success btn-xs">INICIAR</button>
-										  <button type="button" class="btn btn-danger btn-xs finalizar" id="<?=$activity['floor_activity_id']?>">Finalizar</button>
 									  </div> 
 									</td>
 								  </tr>

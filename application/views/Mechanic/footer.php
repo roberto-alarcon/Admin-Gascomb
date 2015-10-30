@@ -25,17 +25,34 @@
   <script src=" <?php echo base_url('mechanic-assets/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'); ?>"></script>
   <script>
 	  $(function () {
-	    //bootstrap WYSIHTML5 - text editor
-	    $(".textarea").wysihtml5();
+		    //bootstrap WYSIHTML5 - text editor
+		    $(".textarea").wysihtml5();
 
-	    //pdf modal
-		$(".pdf").click(function(){
-		  var id = $(this).attr("data-pdf");
-		  //var url_media = "http://github-develop.gascomb.com/user_interface/mecanicos/"+id+"/pdf/"+id+".pdf";
-		  var url_media = id;
-		  $(".modal-body").html('<iframe width="100%" height="610" frameborder="0" scrolling="yes" allowtransparency="true" src="'+url_media+'"></iframe>');
-		  $('#myModal2').modal('show');
-		});	
+		    //pdf modal
+			$(".pdf").click(function(){
+			  var id = $(this).attr("data-pdf");
+			  //var url_media = "http://github-develop.gascomb.com/user_interface/mecanicos/"+id+"/pdf/"+id+".pdf";
+			  var url_media = id;
+			  $(".modal-body").html('<iframe width="100%" height="610" frameborder="0" scrolling="yes" allowtransparency="true" src="'+url_media+'"></iframe>');
+			  $('#myModal2').modal('show');
+			});	
+
+			/* -------------------------------- [ activities ] ---------------------------------- */
+	        
+	        //start
+	        $(".tostart").click(function(){
+
+	        })
+
+	        //finalize
+			$(".tofinalize").click(function(){
+
+			})
+
+            //restart
+            $(".restart").click(function(){
+
+            })
 
 
 	  });
