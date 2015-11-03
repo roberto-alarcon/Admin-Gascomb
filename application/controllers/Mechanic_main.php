@@ -89,7 +89,6 @@ class Mechanic_main extends CI_Controller {
 
         $foliosValidosT = array_merge($foliosValidos,$foliosValidosP);   
 
-        #$foliosValidosT = array_merge($foliosValidos,$foliosValidosP);
         $foliosValidosT = json_encode($foliosValidosT);
 		$this->load->view('Mechanic/header');
 		$this->load->view('Mechanic/main',array('resultado' => $foliosValidosT));
