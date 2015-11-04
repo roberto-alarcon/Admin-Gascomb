@@ -14,7 +14,7 @@
 
     function login($nip, $bd){
       
-        $this->load->database( $bd , TRUE);
+        $this->load->database( $bd , true);
         $this -> db -> select('*');
         $this -> db -> from('employees');
         $this -> db -> where('employee_id', $nip);
@@ -39,12 +39,11 @@
         $session = $ci->session->userdata('logged_in');
         $this->id_employee = $session['employee_id'];   
 
-        $this->load->database( "default" , TRUE);
+        $this->load->database( "default" , true);
         $this -> db -> distinct();
         $this -> db -> select('folio_id');
         $this -> db -> from('floor_activities');
         $this -> db -> where('employee_id', $this->id_employee);
-        #$this -> db -> where('status =', '1');
         $this -> db -> limit(100);
 
         return $this -> db-> get();
@@ -57,9 +56,9 @@
       
         $ci =& get_instance();
         $session = $ci->session->userdata('logged_in');
-        $this->id_employee = $session['employee_id'];      
+        $this->id_employee = $session['employee_id'];     
 
-        $this -> dbPTS = $this->load->database( "pts" , TRUE);
+        $this -> dbPTS = $this->load->database( "pts" , true);
         $this -> dbPTS -> distinct();
         $this -> dbPTS -> select('folio_id');
         $this -> dbPTS -> from('floor_activities');
@@ -74,28 +73,39 @@
     }
 
     function findFechasFolio($folio,$bd){
-        $this->hoy = time();
+
         if ($bd == "default"){
-            $this->load->database( $bd , TRUE);
+            $this->load->database( $bd , true);
             $this -> db -> select('time_start,leader_employee_id,priority');
             $this -> db -> from('floor_activities_folio');
             $this -> db -> where('folio_id', $folio);
+            $this -> db -> where('status !=', '0');
+            $this -> db -> where('status !=', '4');
+            $this -> db -> where('status !=', '5');
             $this -> db -> limit(100);
             $query2 = $this -> db -> get();
         } elseif ($bd == "pts"){
-            $this -> dbPTS = $this->load->database( $bd , TRUE);
+            $this -> dbPTS = $this->load->database( $bd , true);
             $this -> dbPTS -> select('time_start,leader_employee_id,priority');
             $this -> dbPTS -> from('floor_activities_folio');
             $this -> dbPTS -> where('folio_id', $folio);
+            $this -> dbPTS -> where('status !=', '0');
+            $this -> dbPTS -> where('status !=', '4');
+            $this -> dbPTS -> where('status !=', '5');
             $this -> dbPTS -> limit(100);
             $query2 = $this -> dbPTS -> get();  
         }
 
         if($query2 -> num_rows() > 0){
+            $this->hoy = time();
+            $this->hoy = date('Y-m-d H:i:s',$this->hoy);
+
             foreach ($query2->result() as $row2)
             {
-                $time_start_p = date('d/m/Y',$row2->time_start);
-                if( $time_start_p  <= date('d/m/Y', $this->hoy) ){
+                
+                $time_start_db = "";
+                $time_start_db = date('Y-m-d H:i:s',$row2->time_start);
+                if ( strtotime($time_start_db) <= strtotime($this->hoy) ){
                    return true;
                 } else {
                    return false;
@@ -105,8 +115,6 @@
         } else {
             return false;
         }
-
-  
     }
 
     function findActividadesFolio($folio,$bd){
@@ -116,7 +124,9 @@
             $this -> db -> from('floor_activities');
             $this -> db -> where('folio_id', $folio);
             $this -> db -> where('employee_id', $this->id_employee);
-            $this -> db -> where('status <>', '0');
+            $this -> db -> where('status !=', '0');
+            $this -> db -> where('status !=', '4');
+            $this -> db -> where('status !=', '5');
             $this -> db -> limit(100);
             return $this -> db -> get();           
         } else if($bd == "pts"){
@@ -125,7 +135,9 @@
             $this -> dbPTS -> from('floor_activities');
             $this -> dbPTS -> where('folio_id', $folio);
             $this -> dbPTS -> where('employee_id', $this->id_employee);
-            $this -> dbPTS -> where('status <>', '0');
+            $this -> dbPTS -> where('status !=', '0');
+            $this -> dbPTS -> where('status !=', '4');
+            $this -> dbPTS -> where('status !=', '5');
             $this -> dbPTS -> limit(100);
             return $this -> dbPTS -> get();  
         }
@@ -244,6 +256,96 @@
          * also note you can use the ActiveRecord class for this...might make it easier
          free_result();
     }*/
+
+    public function update_activity( $activity, $company, $action ){
+
+        $afftectedRows = 0;
+        switch ($action) {
+            case "tostart":
+                $data = array(
+                   'status' => '2',
+                   'time_start' => time()
+                );
+                break;
+
+            case "tofinalize":
+                $data = array(
+                   'status' => '5',
+                   'time_start' => time()
+                );
+                break;
+
+            case "restart":
+                $data = array(
+                   'status' => '2',
+                   'time_start' => time()
+                );
+                break;
+        }
+
+        if ($company == "Gascomb"){
+            $this->load->database( "default" , true);
+            $this -> db -> where('floor_activity_id', $activity);
+            $this -> db -> update('floor_activities', $data);
+            $afftectedRows = $this -> db -> affected_rows();   
+            
+        } else if ($company == "Pts"){
+            $this->dbPTS = $this->load->database( $bd , true);
+            $this -> dbPTS -> where('floor_activity_id', $activity);
+            $this -> dbPTS -> update('floor_activities', $data);
+            $afftectedRows = $this -> dbPTS -> affected_rows();
+
+         
+        }
+
+        return $afftectedRows;
+
+    }
+
+    public function update_activity_tostop( $activity_id, $company, $action, $comentario, $folio ){
+
+        $afftectedRows = 0;
+        $time_stop = time();
+        $data = array(
+           'status' => '3',
+           'time_start' => $time_stop
+        );
+
+        $ci =& get_instance();
+        $session = $ci->session->userdata('logged_in');
+        $id_empl = $session['employee_id']; 
+
+        $data2 = array(
+           'folio_id'       => $folio ,
+           'date'           => $time_stop,
+           'employee_id'    => $id_empl,
+           'comments'       => $comentario
+        );
+
+
+        if ($company == "Gascomb"){
+            $this->load->database( "default" , true);
+            $this -> db -> insert('floor_activities_comments', $data2); 
+
+            $this -> db -> where('floor_activity_id', $activity_id);
+            $this -> db -> update('floor_activities', $data);
+            $afftectedRows = $this -> db -> affected_rows();
+            
+        } else if ($company == "Pts"){
+            $this->dbPTS = $this->load->database( $bd , true);
+            $this -> dbPTS -> insert('floor_activities_comments', $data2); 
+
+            $this -> dbPTS -> where('floor_activity_id', $activity);
+            $this -> dbPTS -> update('floor_activities', $data);
+            $afftectedRows = $this -> dbPTS -> affected_rows();
+
+         
+        }
+
+        return $afftectedRows;
+
+    }
+
 
   }
 ?>
