@@ -41,16 +41,17 @@ if (!isset($session))
 
 	  <div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav navbar-right">
-		  <li class="dropdown">
+		  <!--<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			  Menú <b class="caret"></b>
 			</a>
 			<ul class="dropdown-menu">
 			  <li><a href="#">Salir</a></li>
-			  <!--<li class="divider"></li>
-			  <li><a href="#">Acción #2</a></li>-->
+			  <li class="divider"></li>
+			  <li><a href="#">Acción #2</a></li>
 			</ul>
-		  </li>
+		  </li>-->
+		  <li class="active"><a href="#">Salir</a></li>
 		</ul>
 		<p class="navbar-text"><?php echo $session['name']; ?></p>
 	  </div>

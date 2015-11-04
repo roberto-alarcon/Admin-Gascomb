@@ -64,6 +64,15 @@ class Mechanic extends CI_Controller {
 		
     }
 
+    public function logout() {
+     //   $this->session->sess_destroy();
+     
+        $this->session->unset_userdata('logged_in');
+        /*$this->session->unset_userdata('login');
+        $this->session->set_flashdata('login_notif', '<p>logout from system</p>');*/
+        redirect('mechanic');
+    }
+
 
 }
 ?>

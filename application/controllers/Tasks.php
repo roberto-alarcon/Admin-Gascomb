@@ -194,6 +194,7 @@ class Tasks extends CI_Controller {
 		$this->load->view('Tasks/mechanic', array('result' => $result , 'list_employees' => $list_employees));
 		$this->load->view('Layout/footer');
 
+
 	}
 
 	public function mechanic_add(){
