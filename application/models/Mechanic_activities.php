@@ -44,6 +44,8 @@
         $this -> db -> select('folio_id');
         $this -> db -> from('floor_activities');
         $this -> db -> where('employee_id', $this->id_employee);
+        $this -> db -> where('status', 1);
+
         $this -> db -> limit(100);
 
         return $this -> db-> get();

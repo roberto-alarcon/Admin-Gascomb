@@ -53,13 +53,13 @@ body{
   text-align:center;
 }
 .priority_red{
-  background-color:#F99299;
+  background-color:#FF0000;
 }
 .priority_green{
-  background-color:#A1FD82;
+  background-color:#009900;
 }
 .priority_yellow{
-  background-color:#FEF055;
+  background-color:#FFFF00;
 }
 .center{
   text-align:center;
@@ -120,7 +120,7 @@ body{
     position: relative;
 }
 
-.space-head{
+.space-head {
   margin-top: 10px;
 }
 
@@ -128,4 +128,8 @@ body{
     font-size: 18px;
     line-height: 1;
     margin-bottom: 22px;
+}
+
+.blues {
+  background-color: #009999;
 }
