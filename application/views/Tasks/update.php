@@ -14,7 +14,7 @@
 
           if( confirm("¿Esta seguro que desea eliminar la actividad?") ){
 
-            window.location.href = "/Admin-Gascomb/index.php/tasks/delete/?id_activity=" + id_activity;
+            window.location.href = "/index.php/tasks/delete/?id_activity=" + id_activity;
 
           }
 
@@ -23,7 +23,7 @@
         
         function add_new_element(){
 
-          window.location.href = "/Admin-Gascomb/index.php/tasks/add/";
+          window.location.href = "/index.php/tasks/add/";
         }
 
         </script>
@@ -61,7 +61,7 @@
                         echo '<tr>';
                         //echo '<td><a href="'. base_url( "index.php/tasks/delete/?id_activity=$id_activity") .'"><i class="fa fa-fw fa-remove"></a></td>';
                         echo '<td><a href="javascript:delete_confirm('.$id_activity.')"><i class="fa fa-fw fa-remove"></a></td>';
-                        echo '<td>'.$row->description.'</td>';     
+                        echo '<td>'.strtoupper( $row->description ).'</td>';     
                         echo '</tr>';
                     }
 

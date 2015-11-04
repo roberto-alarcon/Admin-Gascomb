@@ -3,11 +3,11 @@
 
        function mechanic_view(){
 
-          window.location.href = "/Admin-Gascomb/index.php/tasks/mechanic";
+          window.location.href = "/index.php/tasks/mechanic";
        }
 
        function task_update(){
-          window.location.href = "/Admin-Gascomb/index.php/tasks/update";
+          window.location.href = "/index.php/tasks/update";
 
        }
 
