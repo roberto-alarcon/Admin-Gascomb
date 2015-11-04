@@ -4,6 +4,13 @@ Class Floor_activities extends CI_Model{
 
   var $folio_id;
 
+  var $status   =  array('pendiente-mecanicos' => 0,
+                      'pendiente' => 1,
+                      'proceso' => 2,
+                      'detenido' => 3,
+                      'terminado' => 5
+                     );
+
   function __contruct(){
     parent::__contruct();   
   }
