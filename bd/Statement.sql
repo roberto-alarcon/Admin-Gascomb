@@ -26,3 +26,10 @@ CREATE TABLE `sistema_gascomb`.`floor_activities_timecontrol` (
   `code` VARCHAR(100) NULL,
   `comments` TEXT NULL,
   PRIMARY KEY (`floor_activities_timecontrol_id`));
+
+CREATE TABLE `sistema_gascomb`.`floor_activities_employees` (
+  `floor_activities_employees_id` INT NOT NULL AUTO_INCREMENT,
+  `folio_id` INT NOT NULL,
+  `employee_id` INT NOT NULL,
+  `status` INT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`floor_activities_employees_id`));

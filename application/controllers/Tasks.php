@@ -201,6 +201,26 @@ class Tasks extends CI_Controller {
 
 		$this->load->model('floor_activities');
 		$this->floor_activities->add_mechanics( $_POST );
+
+		// Agregamos listado de empleado de la tabla floor_activities_employees
+		$folio_id			= $this->session->userdata('folio_id');
+		$array_employees	= array();
+
+		foreach ($_POST as $key => $value) {
+			# code...
+			$array_employees[] = $value;
+		}
+
+		$array_unique = array_unique($array_employees);
+		
+
+		$this->load->model('floor_activities_employees');
+		$this->floor_activities_employees->load_folio( $folio_id );
+
+		foreach ($array_unique as $key => $value) {
+			$this->floor_activities_employees->add_employee( $value );
+		}
+
 		redirect('tasks/', 'refresh');
 
 	}

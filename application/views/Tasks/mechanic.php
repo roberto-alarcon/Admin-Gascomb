@@ -8,25 +8,6 @@
           </h1>
         </section>
 
-        <script type="text/javascript">
-
-        function delete_confirm( id_activity ){
-
-          if( confirm("¿Esta seguro que desea eliminar la actividad?") ){
-
-            window.location.href = "/Admin-Gascomb/index.php/tasks/delete/?id_activity=" + id_activity;
-
-          }
-
-        }
-
-        
-        function add_new_element(){
-
-          window.location.href = "/Admin-Gascomb/index.php/tasks/mechanic_add/";
-        }
-
-        </script>
         <!-- Main content -->
         <p/>
         <section class="content">

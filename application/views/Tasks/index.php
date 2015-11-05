@@ -77,6 +77,13 @@
                   <div class="form-group">
                     
                     <!--Aqui ponemos info del status<br/ -->
+                    <label>Status de la orden</label>
+                     <select class="form-control select" name="priority" data-placeholder="Select a State">
+                      <option value="0" <?php echo ($config[0]['priority'] == 0 ? 'selected' : '');  ?> >Abierta</option>
+                      <option value="1" <?php echo ($config[0]['priority'] == 1 ? 'selected' : '');  ?> >Cerrada</option>
+                      
+                    </select>
+
                     
                   </div><!-- /.form-group -->
 
@@ -133,16 +140,21 @@
                         echo '<td></td>';
                         
                        if( $value["status"] == "" or $value["status"] == 0 ){
-                          echo '<td><span class="label label-warning">Pendiente</span></td>';
+                          echo '<td><span class="label label-warning">Pendiente asigancion</span></td>';
                        }else if( $value["status"] == 1 ){
-                          echo '<td><span class="label label-success">En Proceso</span></td>';
+                          echo '<td><span class="label label-success">Pendiente</span></td>';
 
                        }else if( $value["status"] == 2 ){
+                          echo '<td><span class="label label-success">Proceso</span></td>';
+                          
+                       }else if( $value["status"] == 3 ){
                           echo '<td><span class="label label-danger">Detenida</span></td>';
 
-                       }else if( $value["status"] == 3 ){
-                          echo '<td><span class="label label-primary">Terminada</span></td>';
-
+                       }else if( $value["status"] == 4 ){
+                          echo '<td><a href="#"><span class="label label-success">VoBo</span></a></td>';
+                       }
+                       else if( $value["status"] == 5 ){
+                          echo '<td><span class="label label-success">Terminda</span></td>';
                        }
                         
                         echo  '</tr>';
