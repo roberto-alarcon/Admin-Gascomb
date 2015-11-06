@@ -11,7 +11,6 @@ class Mechanic extends CI_Controller {
 
 	public function index(){
 
-		
 		#$this->load->model('mechanic_activities');
 		#$val = $this->mechanic_activities->dame_nombre();
 		#$parametro = "Herminio";
@@ -65,14 +64,22 @@ class Mechanic extends CI_Controller {
     }
 
     public function logout() {
-     //   $this->session->sess_destroy();
-     
         $this->session->unset_userdata('logged_in');
-        /*$this->session->unset_userdata('login');
-        $this->session->set_flashdata('login_notif', '<p>logout from system</p>');*/
         redirect('mechanic');
     }
 
+
+	public function addComment(){
+
+		/*$comment	= $this->input->post('hidden_comments', TRUE);
+		$folio_id 	= $this->session->userdata('folio_id');
+		$this->load->model('floor_activities_comments');
+        $this->floor_activities_comments->load_folio( $folio_id );
+        $this->floor_activities_comments->insert_comment( $comment );
+
+        redirect('tasks/', 'refresh');*/
+
+	}
 
 }
 ?>

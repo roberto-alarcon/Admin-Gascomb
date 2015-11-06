@@ -35,37 +35,32 @@
 
     function findFoliosMechanic(){
       
-        $ci =& get_instance();
+        $ci = & get_instance();
         $session = $ci->session->userdata('logged_in');
         $this->id_employee = $session['employee_id'];   
 
         $this->load->database( "default" , true);
-        $this -> db -> distinct();
-        $this -> db -> select('folio_id');
-        $this -> db -> from('floor_activities');
-        $this -> db -> where('employee_id', $this->id_employee);
-        $this -> db -> where('status', 1);
+        $this->db->from('floor_activities_employees');
+        $this->db->where('employee_id', $this->id_employee);
+        $this->db->where('status =', '1');
+        $this->db->limit(100);
 
-        $this -> db -> limit(100);
-
-        return $this -> db-> get();
-
+        return $this->db->get();
         #return $query->result();
-      
     }
 
     function findFoliosMechanicPts(){
       
-        $ci =& get_instance();
+        $ci = & get_instance();
         $session = $ci->session->userdata('logged_in');
         $this->id_employee = $session['employee_id'];     
 
         $this -> dbPTS = $this->load->database( "pts" , true);
-        $this -> dbPTS -> distinct();
+        #$this -> dbPTS -> distinct();
         $this -> dbPTS -> select('folio_id');
-        $this -> dbPTS -> from('floor_activities');
+        $this -> dbPTS -> from('floor_activities_employees');
         $this -> dbPTS -> where('employee_id', $this->id_employee);
-        #$this -> db -> where('status =', '1');
+        $this -> dbPTS -> where('status =', '1');
         $this -> dbPTS -> limit(100);
 
         return $this -> dbPTS -> get();
@@ -75,10 +70,12 @@
     }
 
     function findFechasFolio($folio,$bd){
+        $hoy = time();
+        $hoy = date('Y-m-d',$hoy);
 
         if ($bd == "default"){
             $this->load->database( $bd , true);
-            $this -> db -> select('time_start,leader_employee_id,priority');
+            $this -> db -> select('time_start');
             $this -> db -> from('floor_activities_folio');
             $this -> db -> where('folio_id', $folio);
             $this -> db -> where('status !=', '0');
@@ -88,7 +85,7 @@
             $query2 = $this -> db -> get();
         } elseif ($bd == "pts"){
             $this -> dbPTS = $this->load->database( $bd , true);
-            $this -> dbPTS -> select('time_start,leader_employee_id,priority');
+            $this -> dbPTS -> select('time_start');
             $this -> dbPTS -> from('floor_activities_folio');
             $this -> dbPTS -> where('folio_id', $folio);
             $this -> dbPTS -> where('status !=', '0');
@@ -99,15 +96,11 @@
         }
 
         if($query2 -> num_rows() > 0){
-            $this->hoy = time();
-            $this->hoy = date('Y-m-d H:i:s',$this->hoy);
 
             foreach ($query2->result() as $row2)
             {
                 
-                $time_start_db = "";
-                $time_start_db = date('Y-m-d H:i:s',$row2->time_start);
-                if ( strtotime($time_start_db) <= strtotime($this->hoy) ){
+                if ( strtotime(date('Y-m-d',$row2->time_start)) >= strtotime($hoy) ){
                    return true;
                 } else {
                    return false;
@@ -127,7 +120,6 @@
             $this -> db -> where('folio_id', $folio);
             $this -> db -> where('employee_id', $this->id_employee);
             $this -> db -> where('status !=', '0');
-            $this -> db -> where('status !=', '4');
             $this -> db -> where('status !=', '5');
             $this -> db -> limit(100);
             return $this -> db -> get();           
@@ -138,7 +130,6 @@
             $this -> dbPTS -> where('folio_id', $folio);
             $this -> dbPTS -> where('employee_id', $this->id_employee);
             $this -> dbPTS -> where('status !=', '0');
-            $this -> dbPTS -> where('status !=', '4');
             $this -> dbPTS -> where('status !=', '5');
             $this -> dbPTS -> limit(100);
             return $this -> dbPTS -> get();  
@@ -272,7 +263,7 @@
 
             case "tofinalize":
                 $data = array(
-                   'status' => '5',
+                   'status' => '4',
                    'time_start' => time()
                 );
                 break;
@@ -347,6 +338,17 @@
         return $afftectedRows;
 
     }
+
+    /*
+    STATUS actividades
+      0 - pendiente por asig mecanicos
+      1 - pendiente -- se lista para trabajarla
+      2 - enproceso
+      3 - detenida
+      4 - Vobo - solo se lista pero no la pueden modificar los mecanicos
+      5 - terminada y aprobada
+
+    */
 
 
   }

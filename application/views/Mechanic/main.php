@@ -124,7 +124,9 @@ if(count($resultado)<>0){
                                            <?php } else if ($activity['status']=="3"){ ?>
 											  <button type="button" class="btn btn btn-success btn-xs restart" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">Reiniciar</button>
 											  <button type="button" class="btn btn-danger btn-xs"  disabled="disabled">Finalizar</button>                                           	
-                                           <?php }
+                                           <?php } else if ($activity['status']=="4"){ ?>
+											  <span class="label label-success">En Aprobación</span>
+										   <?php } 
 									  	?>
 									  </div> 
 									</td>

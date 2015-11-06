@@ -52,6 +52,8 @@ class Mechanic_main extends CI_Controller {
                 }
 
                 $c++;
+            } else {
+                echo $row->folio_id;
             }
         }
 
@@ -87,9 +89,8 @@ class Mechanic_main extends CI_Controller {
         }
         
 
-        $foliosValidosT = array_merge($foliosValidos,$foliosValidosP);   
-
-        $foliosValidosT = json_encode($foliosValidosT);
+        #$foliosValidosT = array_merge($foliosValidos,$foliosValidosP);   
+        $foliosValidosT = json_encode($foliosValidos);
 		$this->load->view('Mechanic/header');
 		$this->load->view('Mechanic/main',array('resultado' => $foliosValidosT));
         $this->load->view('Mechanic/footer');

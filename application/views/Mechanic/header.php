@@ -4,7 +4,7 @@ if (!isset($session))
 {
   echo "
   <script language='Javascript'>
-    location.href = '/Admin-Gascomb/index.php/mechanic';
+    location.href = '/index.php/mechanic';
   </script>";
   exit;
 } 
@@ -51,7 +51,9 @@ if (!isset($session))
 			  <li><a href="#">Acción #2</a></li>
 			</ul>
 		  </li>-->
-		  <li class="active"><a href="#">Salir</a></li>
+		  <li class="active">
+              <a href="mechanic/logout">Salir</a>
+		  </li>
 		</ul>
 		<p class="navbar-text"><?php echo $session['name']; ?></p>
 	  </div>
