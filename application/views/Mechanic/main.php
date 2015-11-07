@@ -8,6 +8,7 @@ if(count($resultado)<>0){
 	foreach ($resultado as $k => $res){
 		#echo $k.": ".$res;
 		$comments = array();
+		$activities = array();
 		foreach($res as $k2 => $folio){
 			if ($k2 == "company"){
 				$company = $folio;
@@ -22,7 +23,7 @@ if(count($resultado)<>0){
 				$fol = $folio;
 			}
 			if ( $k2 == "actividades" && count($folio) > 0){
-                $activities = array();
+             
                 $activities = $folio;
 			}
 			if ($k2 == "datos_folio" && count($folio) > 0){
@@ -106,7 +107,8 @@ if(count($resultado)<>0){
 							<table class="table table-bordered table-hover">
 								<tbody>
 								<?php
-									foreach ($activities as $k3 => $activity) {
+								    if (isset($activities) && count($activities)>0){
+										foreach ($activities as $k3 => $activity) {
 								?>
 								  <tr>
 									<td class="col-md-6">
@@ -131,8 +133,13 @@ if(count($resultado)<>0){
 									  </div> 
 									</td>
 								  </tr>
-								<?php			
-									}
+								<?php	
+                                    	}
+									} else { ?>
+
+									    <span class="label label-info">Folio sin acividades asignadas</span>
+
+									<?php }
 								?>	
 								</tbody>  
 							</table>					

@@ -69,7 +69,7 @@ class Mechanic extends CI_Controller {
     }
 
 
-	public function addComment(){
+	public function addCommentMechanic(){
 
 		/*$comment	= $this->input->post('hidden_comments', TRUE);
 		$folio_id 	= $this->session->userdata('folio_id');
