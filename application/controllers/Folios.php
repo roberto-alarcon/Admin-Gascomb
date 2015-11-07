@@ -30,6 +30,13 @@ class Folios extends CI_Controller {
 		$this->load->model( 'floor_activities_folio' );
 		$this->floor_activities_folio->add_folio( $folio_id );
 
+		// Activamos bandera del folio para mostrar en el dashboard
+		// de los mecánicos
+		/*
+		$this->floor_activities_folio->load_folio( $folio_id );
+		$this->floor_activities_folio->on_activity();
+		*/
+
 		redirect('folios/', 'refresh');;
 	}
 

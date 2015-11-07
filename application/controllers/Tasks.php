@@ -242,6 +242,7 @@ class Tasks extends CI_Controller {
 	public function add_config(){
 
 		$priority 	= $this->input->post('priority', TRUE);
+		$status		= $this->input->post('order_status', TRUE);
 		$time_start	= $this->input->post('time_start_input', TRUE);
 		$time_end	= $this->input->post('time_end_input', TRUE);
 
@@ -254,7 +255,7 @@ class Tasks extends CI_Controller {
 		// Informacion de la configuracion
 		$this->load->model('floor_activities_folio');
 		$this->floor_activities_folio->load_folio( $folio_id );
-		$this->floor_activities_folio->update_config_by_folio( $priority , $unix_time_start , $unix_time_end );
+		$this->floor_activities_folio->update_config_by_folio( $priority , $unix_time_start , $unix_time_end , $status );
 		
 		redirect('tasks/', 'refresh');
 

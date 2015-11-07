@@ -45,9 +45,9 @@
                       <div class="form-group">
                         <label>Prioridad</label>
                         <select class="form-control select" name="priority" data-placeholder="Select a State">
-                          <option value="0" <?php echo ($config[0]['priority'] == 0 ? 'selected' : '');  ?> >Urgente</option>
-                          <option value="1" <?php echo ($config[0]['priority'] == 1 ? 'selected' : '');  ?> >Normal</option>
-                          <option value="2" <?php echo ($config[0]['priority'] == 2 ? 'selected' : '');  ?> >Baja</option>
+                          <option value="0" <?php echo ($config[0]['priority'] == 0 ? 'selected' : '');  ?>>Urgente</option>
+                          <option value="1" <?php echo ($config[0]['priority'] == 1 ? 'selected' : '');  ?>>Normal</option>
+                          <option value="2" <?php echo ($config[0]['priority'] == 2 ? 'selected' : '');  ?>>Baja</option>
                         </select>
                         
                       </div><!-- /.form-group -->
@@ -78,9 +78,9 @@
                     
                     <!--Aqui ponemos info del status<br/ -->
                     <label>Status de la orden</label>
-                     <select class="form-control select" name="priority" data-placeholder="Select a State">
-                      <option value="0" <?php echo ($config[0]['priority'] == 0 ? 'selected' : '');  ?> >Abierta</option>
-                      <option value="1" <?php echo ($config[0]['priority'] == 1 ? 'selected' : '');  ?> >Cerrada</option>
+                     <select class="form-control select" name="order_status" data-placeholder="Select a State">
+                      <option value="1" <?php echo ($config[0]['status'] == 1 ? 'selected' : '');  ?> >Abierta</option>
+                      <option value="0" <?php echo ($config[0]['status'] == 0 ? 'selected' : '');  ?> >Cerrada</option>
                       
                     </select>
 

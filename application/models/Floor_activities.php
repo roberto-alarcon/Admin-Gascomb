@@ -80,13 +80,22 @@ Class Floor_activities extends CI_Model{
         $employees_id       = $value;
 
         $data = array(
-               'employee_id' => $employees_id
+               'employee_id' => $employees_id,
+               'status' => $this->status['pendiente']
             );
 
         $this->db->where('floor_activity_id', $floor_activity_id);
         $this->db->update('floor_activities', $data);
 
     }
+
+  }
+
+
+  public function status_pendiente(){
+
+    
+
 
   }
 
