@@ -29,15 +29,16 @@ class Folios extends CI_Controller {
 		$folio_id 	= $this->input->post('addFolio');
 		$this->load->model( 'floor_activities_folio' );
 		$this->floor_activities_folio->add_folio( $folio_id );
+		redirect('folios/', 'refresh');
+	}
 
-		// Activamos bandera del folio para mostrar en el dashboard
-		// de los mecánicos
-		/*
-		$this->floor_activities_folio->load_folio( $folio_id );
-		$this->floor_activities_folio->on_activity();
-		*/
+	public function delete(){
 
-		redirect('folios/', 'refresh');;
+		$folio_id = $this->input->get('folio_id', TRUE);
+		$this->load->model( 'floor_activities_folio' );
+		$this->floor_activities_folio->delete_folio( $folio_id );
+		redirect('folios/', 'refresh');
+
 	}
 
 	public function search_folio(){

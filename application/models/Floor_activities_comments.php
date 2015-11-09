@@ -37,14 +37,17 @@ Class Floor_activities_comments extends CI_Model{
     $employee_id  = $session['employee_id'];
     $this->load->database( $bd , TRUE);
 
-    $data = array(
-       'folio_id'       => $this->folio_id ,
-       'date'           => time() ,
-       'employee_id'    => $employee_id,
-       'comments'       => $comment
-    );
+    if( !empty($comment) ){
 
-    $this->db->insert('floor_activities_comments', $data);
+      $data = array(
+         'folio_id'       => $this->folio_id ,
+         'date'           => time() ,
+         'employee_id'    => $employee_id,
+         'comments'       => $comment
+      );
+
+      $this->db->insert('floor_activities_comments', $data);
+    }
 
 
   }

@@ -177,8 +177,8 @@
           <!-- Modal content-->
               <?php 
                       $this->load->helper('form');
-                      $attributes = array('id' => 'myform');
-                      echo form_open('ajaxmechanic/udpate_activitie',$attributes);
+                      $attributes = array('id' => 'myform2');
+                      echo form_open('tasks/open_activity',$attributes);
                   ?>
               <div class="modal-content">
               <div class="modal-header">
@@ -186,7 +186,8 @@
                 <h4 class="modal-title">Por favor ingrese un comentario, para abrir nuevamente la actividad.</h4>
               </div>
               <div class="modal-body">
-                            <textarea class="textarea" name="comentario" id="comentario" placeholder="Ingrese comentario aqui" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <textarea class="textarea" name="comentario" id="comentario" placeholder="Ingrese comentario aqui" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <input type="hidden" name="floor_activity_id" id="floor_activity_id">
               </div>
               <div id="error_comentario" style="font-size:11px; color:#ff0000; text-align:center;"></div>
               <div class="modal-footer">
@@ -202,10 +203,30 @@
 
     <script type="text/javascript">
 
-    function modal(){
+    function modal( id ){
 
       $("#myModal3").modal('show');
+      $("#floor_activity_id").val( id );
     }
+
+    $("#send_stop").click(function(){
+       error = 0;
+       comment = $('#comentario').val();
+       if (comment == ""){
+          error = 1;
+          $("#error_comentario").html("Ingrese un comentario valido .");
+          return false;
+       } else {
+          $("#error_comentario").html("");
+          error = 0;
+       }
+
+       if (!error) {
+          
+            $("#myform2").submit();
+
+       } 
+    })
 
 
     </script>

@@ -262,6 +262,27 @@ class Tasks extends CI_Controller {
 
 	}
 
+	public function open_activity(){
+
+		$comment			= $this->input->post('comentario', TRUE);
+		$floor_activity_id	= $this->input->post('floor_activity_id', TRUE);
+		$folio_id 			= $this->session->userdata('folio_id');
+
+
+		// Ingreso de comentarios
+		$this->load->model('floor_activities_comments');
+        $this->floor_activities_comments->load_folio( $folio_id );
+        $this->floor_activities_comments->insert_comment( $comment );
+
+        // cambiamos el status
+        $this->load->model('floor_activities');
+        $this->floor_activities->load_floor_activity_id( $floor_activity_id );
+        $this->floor_activities->status_pendiente();
+
+        redirect('tasks/', 'refresh');
+
+	}
+
 
 }
 ?>

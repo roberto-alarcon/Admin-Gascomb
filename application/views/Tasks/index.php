@@ -151,7 +151,7 @@
                           echo '<td><span class="label label-danger">Detenida</span></td>';
 
                        }else if( $value["status"] == 4 ){
-                          echo '<td><a href="javascript:modal();"><span class="label label-success">VoBo</span></a></td>';
+                          echo '<td><a href="javascript:modal('.$value["floor_activity_id"].');"><span class="label label-success">VoBo</span></a></td>';
                        }
                        else if( $value["status"] == 5 ){
                           echo '<td><span class="label label-success">Terminda</span></td>';

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 Class Floor_activities extends CI_Model{
 
   var $folio_id;
+  var $floor_activity_id;
 
   var $status   =  array('pendiente-mecanicos' => 0,
                       'pendiente' => 1,
@@ -18,6 +19,11 @@ Class Floor_activities extends CI_Model{
   function load_folio( $folio_id ){
 
     $this->folio_id = $folio_id;
+  }
+
+  function load_floor_activity_id( $floor_activity_id ){
+    $this->floor_activity_id = $floor_activity_id;
+
   }
 
 
@@ -91,11 +97,25 @@ Class Floor_activities extends CI_Model{
 
   }
 
+  private function change_status( $status ){
+
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+    $folio_id = $this->session->userdata('folio_id');
+
+    $data = array(
+               'status' => $status
+            );
+
+    $this->db->where('floor_activity_id', $this->floor_activity_id);
+    $this->db->update('floor_activities', $data);
+
+  }
+
 
   public function status_pendiente(){
 
-    
-
+    $this->change_status( $this->status['pendiente'] );
 
   }
 

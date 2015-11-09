@@ -1,4 +1,19 @@
 <!-- Content Wrapper. Contains page content -->
+      <script type="text/javascript">
+
+      function delete_confirm( folio_id ){
+
+        if( confirm("Esta seguro que desea borrar el folio") ){
+          window.location.href = "/index.php/folios/delete?folio_id=" + folio_id;
+
+        }
+
+      }
+
+      </script>
+
+
+
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -61,10 +76,10 @@
                       foreach ($gridFolio->result() as $row){
 
                         echo "<tr>";
-                        echo '<td><a href="javascript:delete_confirm()"><i class="fa fa-fw fa-remove"></a></td>';
+                        echo '<td><a href="javascript:delete_confirm('.$row->folio_id.')"><i class="fa fa-fw fa-remove"></a></td>';
                         echo "<td><a href='".base_url('index.php/loadfolio/tasks?folio_id='.$row->folio_id)."'>".$row->folio_id."</a></td>";
                         echo "<td>".date('d/m/Y H:i:s' , $row->time_start)."</td>";
-                        echo "<td>".$row->status."</td>";
+                        echo "<td>Abierto</td>";
                         echo "</tr>";
 
                       }

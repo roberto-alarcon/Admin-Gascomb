@@ -54,6 +54,14 @@ Class Floor_activities_folio extends CI_Model{
 
   }
 
+  public function delete_folio( $folio_id ){
+    $session      = $this->session->userdata('logged_in');
+    $bd           = $session['bd'];
+    $this->load->database( $bd , TRUE);
+    $this->db->delete('floor_activities_folio', array('folio_id' => $folio_id)); 
+
+  }
+
   public function get_all_info_by_folio( ){
 
     $session  = $this->session->userdata('logged_in');
@@ -79,6 +87,7 @@ Class Floor_activities_folio extends CI_Model{
     $this->db->select('*');
     $this->db->from('floor_activities_folio');
     $this->db->where('leader_employee_id', $employee_id );
+    $this->db->where('status', 1 );
     $this->db->order_by("folio_id", "desc");
     $query = $this->db->get();
     return $query;
