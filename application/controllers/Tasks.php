@@ -74,7 +74,8 @@ class Tasks extends CI_Controller {
 		$this->load->view('Layout/header');
 		$this->load->view('Layout/menu_folio');
 		$this->load->view('Tasks/index' , array('grid' => $grid_array , 'comments' => $grid_comments , 'config' =>$config_array));
-		$this->load->view('Layout/footer');
+		//$this->load->view('Layout/footer');
+		$this->load->view('Tasks/footer');
 		
 
 	}
