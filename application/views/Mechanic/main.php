@@ -136,8 +136,11 @@ if(count($resultado)<>0){
 								<?php	
                                     	}
 									} else { ?>
-
-									    <span class="label label-info">Folio sin acividades asignadas</span>
+								  <tr>
+									<td class="col-md-6">
+									   <div align="center"><h4><span class="label label-primary">Folio sin acividades asignadas</span></h4></div>
+									</td>
+								  </tr>	    
 
 									<?php }
 								?>	
@@ -193,12 +196,17 @@ if(count($resultado)<>0){
 					                <div class="box" style="padding-top:15px;">
 					                  <div class="box-body pad">
 					                  	<div class="box-title2">Agrega Comentarios</div>
-					                    <form>
-					                      <textarea class="textarea" placeholder="Ingrese comentario aqui" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+					                  	<?php
+					                  	   $this->load->helper('form');
+					                       $attributes = array('id' => 'myform'.$fol);
+                                           echo form_open('mechanic/addCommentMechanic' , $attributes); ?>
+                                          <input type="hidden" name="company<?=$fol?>" value="<?=$company?>"/> 
+					                      <textarea name="c<?=$fol?>" class="textarea" id="c<?=$fol?>" placeholder="Ingrese comentario aqui" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 					                    </form>
+					                    <div id="error_c<?=$fol?>" style="font-size:11px; color:#ff0000; text-align:center;"></div>
 					                  </div>
 					                  <div class="box-footer">
-					                      <button type="button" onclick="javascript:clickme()" class="btn btn-primary pull-right">Guardar</button>
+					                      <button type="button" class="btn btn-primary pull-right comments" dcf="<?=$fol?>">Guardar</button>
 					                  </div><!-- /.box-footer -->				                  
 					                </div>	                                
 

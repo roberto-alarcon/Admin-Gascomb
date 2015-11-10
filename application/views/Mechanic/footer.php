@@ -98,6 +98,8 @@
 
 	        })
 
+	        /*send comments - stop acivity*/
+
 	        $("#send_stop").click(function(){
                error = 0;
                comment = $('#comentario').val();
@@ -115,6 +117,28 @@
                     $("#myform").submit();
 
                } 
+            })
+
+	        $(".comments").click(function(){
+               error = 0;
+               var fo = $(this).attr("dcf");
+
+               var comment = $("#c"+fo).val();
+               $("<input>").attr('type','hidden').attr('name','fo').attr('value',fo).appendTo($('#myform'+fo));
+               if (comment == ""){
+                  error = 1;
+                  $("#error_c"+fo).html("Ingrese un comentario valido");
+                  return false;
+               } else {
+               	  $("#error_c"+fo).html("");
+               	  error = 0;
+               }
+
+               if (!error) {
+                  
+                   $("#myform"+fo).submit();
+
+               }
             })
 
 

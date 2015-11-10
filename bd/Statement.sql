@@ -33,3 +33,14 @@ CREATE TABLE `sistema_gascomb`.`floor_activities_employees` (
   `employee_id` INT NOT NULL,
   `status` INT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`floor_activities_employees_id`));
+
+CREATE TABLE `sistema_gascomb`.`floor_activities_details_control` (
+  `floor_activities_details_control_id` INT NOT NULL AUTO_INCREMENT,
+  `folio_id` INT NULL,
+  `floor_activity_id` INT NULL,
+  `employee_id` INT NULL,
+  `status` INT(1) NOT NULL DEFAULT 0,
+  `time_start` int(12) DEFAULT NULL,
+  `comments_id` INT NULL,
+  PRIMARY KEY (`floor_activities_details_control_id`));
+

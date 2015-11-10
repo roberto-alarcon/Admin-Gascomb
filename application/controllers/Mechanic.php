@@ -30,14 +30,14 @@ class Mechanic extends CI_Controller {
     public function logeame(){
 
 		$this->load->model('mechanic_activities');
-		$nip 	= $this->input->post('nip');
+		$nip = $this->input->post('nip');
 		$bd = "default";
 		$bd2 = "default";
 
-		$result = $this->mechanic_activities->login($nip , $bd );	
+		$result = $this->mechanic_activities->login($nip , $bd);	
 
 		if($result)
-	   {
+	    {
 		     $sess_array = array();
 		     foreach($result as $row){
 		        $sess_array = array(
@@ -71,13 +71,14 @@ class Mechanic extends CI_Controller {
 
 	public function addCommentMechanic(){
 
-		/*$comment	= $this->input->post('hidden_comments', TRUE);
-		$folio_id 	= $this->session->userdata('folio_id');
-		$this->load->model('floor_activities_comments');
-        $this->floor_activities_comments->load_folio( $folio_id );
-        $this->floor_activities_comments->insert_comment( $comment );
+		$folio = $this->input->post('fo', TRUE);
+		$comment = $this->input->post('c'.$folio, TRUE);
+		$company = $this->input->post('company'.$folio, TRUE);
 
-        redirect('tasks/', 'refresh');*/
+		$this->load->model('mechanic_activities');
+        $this->mechanic_activities->add_comment_folio($folio,$comment,$company);
+
+        redirect('mechanic_main', 'refresh');
 
 	}
 

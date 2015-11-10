@@ -74,8 +74,8 @@
         $hoy = date('Y-m-d',$hoy);
 
         if ($bd == "default"){
-            $this->load->database( $bd , true);
-            $this -> db -> select('time_start');
+            $this->load->database($bd , true);
+            $this -> db -> select('time_start, status');
             $this -> db -> from('floor_activities_folio');
             $this -> db -> where('folio_id', $folio);
             $this -> db -> where('status !=', '0');
@@ -83,14 +83,11 @@
             $this -> db -> where('status !=', '5');
             $this -> db -> limit(100);
             $query2 = $this -> db -> get();
-        } elseif ($bd == "pts"){
-            $this -> dbPTS = $this->load->database( $bd , true);
-            $this -> dbPTS -> select('time_start');
+        } elseif ($bd == "pts"){$this -> db -> where('folio_id', $folio);
+            $this -> dbPTS = $this->load->database($bd , true);
+            $this -> dbPTS -> select('time_start, status');
             $this -> dbPTS -> from('floor_activities_folio');
             $this -> dbPTS -> where('folio_id', $folio);
-            $this -> dbPTS -> where('status !=', '0');
-            $this -> dbPTS -> where('status !=', '4');
-            $this -> dbPTS -> where('status !=', '5');
             $this -> dbPTS -> limit(100);
             $query2 = $this -> dbPTS -> get();  
         }
@@ -99,9 +96,17 @@
 
             foreach ($query2->result() as $row2)
             {
-                
+            
+                $days = 0;
                 if ( strtotime(date('Y-m-d',$row2->time_start)) >= strtotime($hoy) ){
                    return true;
+                } elseif ( strtotime(date('Y-m-d',$row2->time_start)) < strtotime($hoy) ){
+                   $days = $this->days_passed(date('Y-m-d',$row2->time_start),$hoy);
+                   if($days <= 365){
+                        return true;
+                   } else {
+                        return false;
+                   }
                 } else {
                    return false;
                 }
@@ -110,6 +115,13 @@
         } else {
             return false;
         }
+    }
+
+    function days_passed($date_i,$date_f){
+        $days = (strtotime($date_i)-strtotime($date_f))/86400;
+        $days = abs($days); 
+        $days = floor($days);   
+        return $days;
     }
 
     function findActividadesFolio($folio,$bd){
@@ -330,6 +342,40 @@
 
             $this -> dbPTS -> where('floor_activity_id', $activity);
             $this -> dbPTS -> update('floor_activities', $data);
+            $afftectedRows = $this -> dbPTS -> affected_rows();
+
+         
+        }
+
+        return $afftectedRows;
+
+    }
+
+    public function add_comment_folio($folio,$comment,$company){
+
+        $afftectedRows = 0;
+        $time = time();
+
+        $ci =& get_instance();
+        $session = $ci->session->userdata('logged_in');
+        $id_empl = $session['employee_id']; 
+
+        $data2 = array(
+           'folio_id'       => $folio ,
+           'date'           => $time,
+           'employee_id'    => $id_empl,
+           'comments'       => $comment
+        );
+
+
+        if ($company == "Gascomb"){
+            $this->load->database( "default" , true);
+            $this -> db -> insert('floor_activities_comments', $data2); 
+            $afftectedRows = $this -> db -> affected_rows();
+            
+        } else if ($company == "Pts"){
+            $this->dbPTS = $this->load->database( $bd , true);
+            $this -> dbPTS -> insert('floor_activities_comments', $data2); 
             $afftectedRows = $this -> dbPTS -> affected_rows();
 
          
