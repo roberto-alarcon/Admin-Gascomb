@@ -9,6 +9,7 @@ Class Floor_activities extends CI_Model{
                       'pendiente' => 1,
                       'proceso' => 2,
                       'detenido' => 3,
+                      'vobo' =>4,
                       'terminado' => 5
                      );
 
@@ -72,6 +73,30 @@ Class Floor_activities extends CI_Model{
 
   }
 
+  public function get_employee_id_by_floor_activity_id( $floor_activity_id ){
+
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $this->load->database( $bd , TRUE);
+    $this->db->select("employee_id");
+    $this->db->from('floor_activities');
+    $this->db->where('floor_activity_id', $floor_activity_id);
+    $query = $this->db->get();
+
+    $employee_id = 0;
+
+    foreach ($query->result() as $row)
+    {
+        $employee_id =  $row->employee_id;
+    }
+
+    return $employee_id;
+
+  }
+
+
+
 
   public function add_mechanics( $arrayMechanics ){
 
@@ -85,17 +110,76 @@ Class Floor_activities extends CI_Model{
         $floor_activity_id  = $key;
         $employees_id       = $value;
 
-        $data = array(
-               'employee_id' => $employees_id,
-               'status' => $this->status['pendiente']
-            );
+        $_bd_employee_id    = $this->get_employee_id_by_floor_activity_id( $floor_activity_id );
+        
+        if ( $_bd_employee_id !=  $employees_id){
 
-        $this->db->where('floor_activity_id', $floor_activity_id);
-        $this->db->update('floor_activities', $data);
+          $data = array(
+                 'employee_id' => $employees_id,
+                 'status' => $this->status['pendiente']
+              );
+
+          $this->db->where('floor_activity_id', $floor_activity_id);
+          $this->db->update('floor_activities', $data);
+
+        }
 
     }
 
   }
+
+  public function check_all_in_vobo(){
+    $folio_id = $this->session->userdata('folio_id');
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $this->load->database( $bd , TRUE);
+    $this->db->select('status');
+    $this->db->from('floor_activities');
+    $this->db->where('folio_id', $folio_id );
+    $query = $this->db->get();
+
+
+    $array_result = array();
+    foreach ($query->result() as $row)
+    {
+      $array_result[] =  $row->status;
+    }
+
+    $resultado = array_unique( $array_result );
+
+    if( isset( $resultado[0] ) ){
+      if ( count($resultado) == 1 && $resultado[0] == 4 ){
+        return "1";
+
+      }else{
+        return "0";
+
+      }
+    }else{
+
+      return "0";
+    }
+
+  }
+
+
+  public function close_all_activities_by_folio_id(){
+
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $data = array(
+               'status' => $this->status['terminado']
+            );
+
+    $this->db->where('folio_id', $this->folio_id);
+    $this->db->update('floor_activities', $data);
+
+
+  }
+
+
 
   private function change_status( $status ){
 
@@ -118,6 +202,9 @@ Class Floor_activities extends CI_Model{
     $this->change_status( $this->status['pendiente'] );
 
   }
+
+
+
 
 
 }

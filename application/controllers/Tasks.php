@@ -117,6 +117,7 @@ class Tasks extends CI_Controller {
 		$this->load->view('Layout/footer');
 	}
 
+	
 	public function add_activity(){
 
 		$query 					= $this->input->post('activity');
@@ -141,6 +142,17 @@ class Tasks extends CI_Controller {
 
 
 		redirect('tasks/update', 'refresh');
+	}
+
+	
+	public function close_order_verify(){
+
+		$this->load->model('floor_activities');
+		$return = $this->floor_activities->check_all_in_vobo();
+		echo $return;
+
+
+		
 	}
 
 
@@ -218,6 +230,10 @@ class Tasks extends CI_Controller {
 		$this->load->model('floor_activities_employees');
 		$this->floor_activities_employees->load_folio( $folio_id );
 
+		// Borramos todos los resultados antes de agregar un valor
+		$this->floor_activities_employees->delete_employee_by_folio_id();
+
+		// Agregamos los resultados a la base de datos
 		foreach ($array_unique as $key => $value) {
 			$this->floor_activities_employees->add_employee( $value );
 		}
@@ -258,6 +274,26 @@ class Tasks extends CI_Controller {
 		$this->floor_activities_folio->load_folio( $folio_id );
 		$this->floor_activities_folio->update_config_by_folio( $priority , $unix_time_start , $unix_time_end , $status );
 		
+		
+		// Procesamos informacion en caso de que la orden este cerrada
+		$order_status 	= $this->input->post('order_status', TRUE);
+		if( $order_status == 0 ){
+
+			// Borramos vinculacio en la tabla floor_activities_employees
+			$this->load->model('floor_activities_employees');
+			$this->floor_activities_employees->load_folio( $folio_id );
+			$this->floor_activities_employees->delete_employee_by_folio_id();
+
+			// Cambiamos todos los status de las actividades a terminado (5)
+			$this->load->model('floor_activities');
+			$this->floor_activities->load_folio( $folio_id );
+			$this->floor_activities->close_all_activities_by_folio_id();
+
+
+		}
+
+
+
 		redirect('tasks/', 'refresh');
 
 	}

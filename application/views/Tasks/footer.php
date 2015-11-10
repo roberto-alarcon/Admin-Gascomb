@@ -229,8 +229,36 @@
     })
 
 
-    </script>
+    //** AJAX - Funcionalidad cerrado de actividad //
 
-    
+    $( "#order_status" ).change(function() {
+      
+      var select_value = $( "#order_status" ).val();
+      if( select_value == 0 ){
+        
+        $.ajax({
+          url: "tasks/close_order_verify",
+          cache: false
+        })
+          .done(function( html ) {
+            //$( "#results" ).append( html );
+
+            if(html == "0"){
+
+              $("#msj_order").html("No se puede cerrar el folio ya que aún existen actividades abiertas");
+              $("#msj_order").css("color", "red");
+              $( "#order_status" ).val('1');
+            }
+
+            console.log( html );
+          });
+
+      }
+
+      
+
+    });
+
+    </script>    
   </body>
 </html>

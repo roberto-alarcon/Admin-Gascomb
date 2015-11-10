@@ -26,6 +26,15 @@ Class Floor_activities_employees extends CI_Model{
     $total  = $this->db->count_all_results();
     return $total;
 
+  }
+
+  public function delete_employee_by_folio_id(){
+
+    $session      = $this->session->userdata('logged_in');
+    $bd           = $session['bd'];
+    $this->load->database( $bd , TRUE);
+    $this->db->delete('floor_activities_employees', array('folio_id' => $this->folio_id));
+
   }  
 
 

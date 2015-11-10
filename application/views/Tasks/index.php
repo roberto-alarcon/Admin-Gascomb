@@ -78,12 +78,22 @@
                     
                     <!--Aqui ponemos info del status<br/ -->
                     <label>Status de la orden</label>
-                     <select class="form-control select" name="order_status" data-placeholder="Select a State">
+                     
+                    <?php 
+
+                    $disabled = "";
+                    if( $config[0]['status'] == 0 ){
+                      $disabled = "disabled";
+                    }
+
+                    ?>
+                     <select class="form-control select" name="order_status" id="order_status" data-placeholder="Select a State" <?php echo $disabled;?>>
                       <option value="1" <?php echo ($config[0]['status'] == 1 ? 'selected' : '');  ?> >Abierta</option>
                       <option value="0" <?php echo ($config[0]['status'] == 0 ? 'selected' : '');  ?> >Cerrada</option>
                       
                     </select>
 
+                    <div id="msj_order"></div>
                     
                   </div><!-- /.form-group -->
 
