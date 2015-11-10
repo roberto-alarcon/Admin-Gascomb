@@ -88,6 +88,9 @@
             $this -> dbPTS -> select('time_start, status');
             $this -> dbPTS -> from('floor_activities_folio');
             $this -> dbPTS -> where('folio_id', $folio);
+            $this -> dbPTS -> where('status !=', '0');
+            $this -> dbPTS -> where('status !=', '4');
+            $this -> dbPTS -> where('status !=', '5');
             $this -> dbPTS -> limit(100);
             $query2 = $this -> dbPTS -> get();  
         }
@@ -96,7 +99,6 @@
 
             foreach ($query2->result() as $row2)
             {
-            
                 $days = 0;
                 if ( strtotime(date('Y-m-d',$row2->time_start)) >= strtotime($hoy) ){
                    return true;

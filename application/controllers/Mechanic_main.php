@@ -52,8 +52,6 @@ class Mechanic_main extends CI_Controller {
                 }
 
                 $c++;
-            } else {
-                echo $row->folio_id;
             }
         }
 

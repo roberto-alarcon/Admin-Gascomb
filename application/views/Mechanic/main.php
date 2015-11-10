@@ -1,5 +1,9 @@
 <?php
     $resultado = json_decode($resultado, true);
+	foreach ($resultado as $n => $s) {
+	    $aux[$n] = $s['priority'];
+	}
+	array_multisort($aux, SORT_ASC, $resultado);
 	#echo "<pre>"; print_r($resultado); echo "</pre>"; die();
 ?>
 	<div class="container">
