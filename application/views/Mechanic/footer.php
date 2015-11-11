@@ -68,15 +68,15 @@
 	        	var company = $(this).attr("compid");
 	        	var activity = $(this).attr("datas");
 	        	var classe = $(this).attr("class");
-	        	var employee = $("#employee").attr("datas");
-
+	        	var folio = $(this).attr("fol");
 	        	var classes = classe.split(" ");
 	        	var action = classes[classes.length-1];
+
                 if (action != "tostop"){
 					$.ajax({
 						type: "POST",
 						url: 'ajaxmechanic/udpate_activitie',
-						data: { act: action, comp: company, actv: activity },
+						data: { act: action, comp: company, actv: activity, fo: folio },
 						dataType:'html',
 						success: function(data){
 						  if (data == 1){
@@ -87,7 +87,7 @@
 						}     
 					});
                 } else {
-                	var folio = $(this).attr("fol");
+                	
                 	$("<input>").attr('type','hidden').attr('name','comp').attr('value',company).appendTo($('#myform'));
                 	$("<input>").attr('type','hidden').attr('name','act').attr('value',action).appendTo($('#myform'));
                 	$("<input>").attr('type','hidden').attr('name','actv').attr('value',activity).appendTo($('#myform'));

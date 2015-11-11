@@ -75,8 +75,8 @@ class Mechanic extends CI_Controller {
 		$comment = $this->input->post('c'.$folio, TRUE);
 		$company = $this->input->post('company'.$folio, TRUE);
 
-		$this->load->model('mechanic_activities');
-        $this->mechanic_activities->add_comment_folio($folio,$comment,$company);
+		$this->load->model('floor_activities_comments');
+        $this->floor_activities_comments->add_comment_folio($folio,$comment,$company);
 
         redirect('mechanic_main', 'refresh');
 

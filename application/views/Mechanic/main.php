@@ -1,5 +1,6 @@
 <?php
-    $resultado = json_decode($resultado, true);
+$resultado = json_decode($resultado, true);
+if(count($resultado)<>0){
 	foreach ($resultado as $n => $s) {
 	    $aux[$n] = $s['priority'];
 	}
@@ -8,7 +9,6 @@
 ?>
 	<div class="container">
 <?php	
-if(count($resultado)<>0){
 	foreach ($resultado as $k => $res){
 		#echo $k.": ".$res;
 		$comments = array();
@@ -122,13 +122,13 @@ if(count($resultado)<>0){
 									  <div align="center">
 									  	<?php
                                            if ($activity['status']=="1"){ ?>
-											  <button type="button" class="btn btn btn-success btn-xs tostart" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">Iniciar</button>
+											  <button type="button" class="btn btn btn-success btn-xs tostart" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>" fol="<?=$fol?>">Iniciar</button>
 											  <button type="button" class="btn btn-danger btn-xs" disabled="disabled">Finalizar</button>
                                            <?php } else if ($activity['status']=="2"){ ?>
 											  <button type="button" class="btn btn btn-warning btn-xs tostop" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>" fol="<?=$fol?>">Detener</button>
-											  <button type="button" class="btn btn-danger btn-xs tofinalize" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">Finalizar</button>
+											  <button type="button" class="btn btn-danger btn-xs tofinalize" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>" fol="<?=$fol?>">Finalizar</button>
                                            <?php } else if ($activity['status']=="3"){ ?>
-											  <button type="button" class="btn btn btn-success btn-xs restart" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>">Reiniciar</button>
+											  <button type="button" class="btn btn btn-success btn-xs restart" datas="<?=$activity['floor_activity_id']?>" compid="<?=$company?>" fol="<?=$fol?>">Reiniciar</button>
 											  <button type="button" class="btn btn-danger btn-xs"  disabled="disabled">Finalizar</button>                                           	
                                            <?php } else if ($activity['status']=="4"){ ?>
 											  <span class="label label-success">En Aprobación</span>

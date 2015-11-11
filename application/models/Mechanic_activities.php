@@ -264,31 +264,27 @@
          free_result();
     }*/
 
-    public function update_activity( $activity, $company, $action ){
+    public function update_activity( $activity, $company, $action, $time){
 
         $afftectedRows = 0;
         switch ($action) {
             case "tostart":
-                $data = array(
-                   'status' => '2',
-                   'time_start' => time()
-                );
+                $status = '2';
                 break;
 
             case "tofinalize":
-                $data = array(
-                   'status' => '4',
-                   'time_start' => time()
-                );
+                $status = '4';
                 break;
 
             case "restart":
-                $data = array(
-                   'status' => '2',
-                   'time_start' => time()
-                );
+                $status = '2';
                 break;
         }
+
+        $data = array(
+           'status' => $status,
+           'time_start' => $time
+        );
 
         if ($company == "Gascomb"){
             $this->load->database( "default" , true);
@@ -353,39 +349,6 @@
 
     }
 
-    public function add_comment_folio($folio,$comment,$company){
-
-        $afftectedRows = 0;
-        $time = time();
-
-        $ci =& get_instance();
-        $session = $ci->session->userdata('logged_in');
-        $id_empl = $session['employee_id']; 
-
-        $data2 = array(
-           'folio_id'       => $folio ,
-           'date'           => $time,
-           'employee_id'    => $id_empl,
-           'comments'       => $comment
-        );
-
-
-        if ($company == "Gascomb"){
-            $this->load->database( "default" , true);
-            $this -> db -> insert('floor_activities_comments', $data2); 
-            $afftectedRows = $this -> db -> affected_rows();
-            
-        } else if ($company == "Pts"){
-            $this->dbPTS = $this->load->database( $bd , true);
-            $this -> dbPTS -> insert('floor_activities_comments', $data2); 
-            $afftectedRows = $this -> dbPTS -> affected_rows();
-
-         
-        }
-
-        return $afftectedRows;
-
-    }
 
     /*
     STATUS actividades
