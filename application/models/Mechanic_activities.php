@@ -288,15 +288,15 @@
 
         if ($company == "Gascomb"){
             $this->load->database( "default" , true);
-            $this -> db -> where('floor_activity_id', $activity);
-            $this -> db -> update('floor_activities', $data);
+            $this->db->where('floor_activity_id', $activity);
+            $this->db->update('floor_activities', $data);
             $afftectedRows = $this -> db -> affected_rows();   
             
         } else if ($company == "Pts"){
             $this->dbPTS = $this->load->database( $bd , true);
-            $this -> dbPTS -> where('floor_activity_id', $activity);
-            $this -> dbPTS -> update('floor_activities', $data);
-            $afftectedRows = $this -> dbPTS -> affected_rows();
+            $this->dbPTS->where('floor_activity_id', $activity);
+            $this->dbPTS->update('floor_activities', $data);
+            $afftectedRows = $this->dbPTS->affected_rows();
 
          
         }
@@ -305,13 +305,14 @@
 
     }
 
-    public function update_activity_tostop( $activity_id, $company, $action, $comentario, $folio ){
+    public function update_activity_tostop( $activity_id, $company, $action, $comentario, $folio, $time){
 
         $afftectedRows = 0;
-        $time_stop = time();
+        $idComment = 0;
+
         $data = array(
            'status' => '3',
-           'time_start' => $time_stop
+           'time_start' => $time
         );
 
         $ci =& get_instance();
@@ -320,7 +321,7 @@
 
         $data2 = array(
            'folio_id'       => $folio ,
-           'date'           => $time_stop,
+           'date'           => $time,
            'employee_id'    => $id_empl,
            'comments'       => $comentario
         );
@@ -328,24 +329,24 @@
 
         if ($company == "Gascomb"){
             $this->load->database( "default" , true);
-            $this -> db -> insert('floor_activities_comments', $data2); 
+            $this->db->insert('floor_activities_comments', $data2); 
+            $idComment = $this->db->insert_id();
 
-            $this -> db -> where('floor_activity_id', $activity_id);
-            $this -> db -> update('floor_activities', $data);
-            $afftectedRows = $this -> db -> affected_rows();
+            $this->db->where('floor_activity_id', $activity_id);
+            $this->db->update('floor_activities', $data);
+            #$afftectedRows = $this -> db -> affected_rows();
             
         } else if ($company == "Pts"){
             $this->dbPTS = $this->load->database( $bd , true);
-            $this -> dbPTS -> insert('floor_activities_comments', $data2); 
+            $this->dbPTS->insert('floor_activities_comments', $data2); 
+            $idComment = $this->db->insert_id();
 
             $this -> dbPTS -> where('floor_activity_id', $activity);
             $this -> dbPTS -> update('floor_activities', $data);
-            $afftectedRows = $this -> dbPTS -> affected_rows();
-
-         
+            #$afftectedRows = $this -> dbPTS -> affected_rows();
         }
-
-        return $afftectedRows;
+        
+        return $idComment;
 
     }
 

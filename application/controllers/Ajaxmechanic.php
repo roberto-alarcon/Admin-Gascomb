@@ -34,7 +34,9 @@ class Ajaxmechanic extends CI_Controller {
 				echo 0;
 			}
 		} else {
-			$update = $this->mechanic_activities->update_activity_tostop($activity_id, $company, $action, $comentario, $folio);
+			$idComment = $this->mechanic_activities->update_activity_tostop($activity_id, $company, $action, $comentario, $folio, $time);
+			$this->floor_activities_details_control->updateDetailsActivitiesStop($folio, $activity_id, $company, $action, $time, $idComment);
+			
 			redirect('mechanic_main', 'refresh');
 		}
         
