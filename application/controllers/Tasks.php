@@ -238,6 +238,14 @@ class Tasks extends CI_Controller {
 			$this->floor_activities_employees->add_employee( $value );
 		}
 
+		// Agregamos la marca de tiempo para indicar que los mecanicanicos
+		// ya fueron asociados al la tabla
+		// Agregamos la marca de tiempo
+		$this->load->model( 'floor_activities_timecontrol' );
+		$this->floor_activities_timecontrol->load_folio( $folio_id	 );
+		$this->floor_activities_timecontrol->set_asignacion_mecanicos();
+
+
 		redirect('tasks/', 'refresh');
 
 	}
@@ -288,6 +296,11 @@ class Tasks extends CI_Controller {
 			$this->load->model('floor_activities');
 			$this->floor_activities->load_folio( $folio_id );
 			$this->floor_activities->close_all_activities_by_folio_id();
+
+			// Generamos marca de tiempo para indicar que se cerro la orden 
+			$this->load->model( 'floor_activities_timecontrol' );
+			$this->floor_activities_timecontrol->load_folio( $folio_id	 );
+			$this->floor_activities_timecontrol->set_cerrar_folio();
 
 
 		}

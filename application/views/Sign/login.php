@@ -35,11 +35,11 @@
         
         <?php echo form_open('sign/register'); ?>
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="E-mail" name="username" value="strike.00mx@hotmail.com">
+            <input type="email" class="form-control" placeholder="E-mail" name="username" value="">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" name="password" value="P4dr1n0s">
+            <input type="password" class="form-control" placeholder="Password" name="password" value="">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <p class="login-box-msg">Sistema</p>

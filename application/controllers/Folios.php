@@ -29,6 +29,13 @@ class Folios extends CI_Controller {
 		$folio_id 	= $this->input->post('addFolio');
 		$this->load->model( 'floor_activities_folio' );
 		$this->floor_activities_folio->add_folio( $folio_id );
+
+		// Agregamos la marca de tiempo
+		$this->load->model( 'floor_activities_timecontrol' );
+		$this->floor_activities_timecontrol->load_folio( $folio_id	 );
+		$this->floor_activities_timecontrol->set_asignacion_folio();
+
+
 		redirect('folios/', 'refresh');
 	}
 
