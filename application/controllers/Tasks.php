@@ -158,10 +158,6 @@ class Tasks extends CI_Controller {
 
 	public function gantt(){
 
-		$employees = $this->load->library('employees');
-		var_dump($employees);
-		echo $employees->getname();
-
 		echo "Vista Gantt";
 	}
 
@@ -318,15 +314,29 @@ class Tasks extends CI_Controller {
 		$folio_id 			= $this->session->userdata('folio_id');
 
 
+		//Obtenemos el string de la actividad
+		$this->load->model('floor_activities');
+		$description = $this->floor_activities->get_activity_descripction_by_id( $floor_activity_id );
+		$description_name = (isset( $description[0] ) )? $description[0] : "";
+		$string_concat = "[[** RE-ABIERTO ".$description_name." **]] - ";
+		$comment = $string_concat . $comment;
+
 		// Ingreso de comentarios
 		$this->load->model('floor_activities_comments');
         $this->floor_activities_comments->load_folio( $folio_id );
-        $this->floor_activities_comments->insert_comment( $comment );
+        $last_id = $this->floor_activities_comments->insert_comment( $comment );
+
 
         // cambiamos el status
         $this->load->model('floor_activities');
         $this->floor_activities->load_floor_activity_id( $floor_activity_id );
         $this->floor_activities->status_pendiente();
+
+        //Agregamos la marca de tiempo
+        $this->load->model('Floor_activities_details_control');
+        $this->Floor_activities_details_control->updateDetailsActivitiesReOpen( $folio_id ,  $floor_activity_id , "Gascomb" , time() , $last_id );
+
+
 
         redirect('tasks/', 'refresh');
 

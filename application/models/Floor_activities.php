@@ -164,6 +164,30 @@ Class Floor_activities extends CI_Model{
   }
 
 
+  public function get_activity_descripction_by_id( $id ){
+
+    $folio_id = $this->session->userdata('folio_id');
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $this->load->database( $bd , TRUE);
+    $this->db->select('description');
+    $this->db->from('floor_activities');
+    $this->db->where('floor_activity_id', $id  );
+    $query = $this->db->get();
+
+    $array_result = array();
+    foreach ($query->result() as $row)
+    {
+      $array_result[] =  $row->description;
+    }
+
+    return $array_result;
+
+
+  }
+
+
   public function close_all_activities_by_folio_id(){
 
     $session  = $this->session->userdata('logged_in');
@@ -197,7 +221,7 @@ Class Floor_activities extends CI_Model{
   }
 
 
-  public function status_pendiente(){
+  public function status_pendiente( ){
 
     $this->change_status( $this->status['pendiente'] );
 

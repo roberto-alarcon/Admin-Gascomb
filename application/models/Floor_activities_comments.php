@@ -49,6 +49,8 @@ Class Floor_activities_comments extends CI_Model{
       $this->db->insert('floor_activities_comments', $data);
     }
 
+    return $this->db->insert_id();
+
 
   }
 
