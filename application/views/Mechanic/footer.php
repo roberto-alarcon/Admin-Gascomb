@@ -69,6 +69,7 @@
 	        	var activity = $(this).attr("datas");
 	        	var classe = $(this).attr("class");
 	        	var folio = $(this).attr("fol");
+	        	var actDes = $(this).attr("actdes");
 	        	var classes = classe.split(" ");
 	        	var action = classes[classes.length-1];
 
@@ -90,6 +91,7 @@
                 	
                 	$("<input>").attr('type','hidden').attr('name','comp').attr('value',company).appendTo($('#myform'));
                 	$("<input>").attr('type','hidden').attr('name','act').attr('value',action).appendTo($('#myform'));
+                	$("<input>").attr('type','hidden').attr('name','actdes').attr('value',actDes).appendTo($('#myform'));
                 	$("<input>").attr('type','hidden').attr('name','actv').attr('value',activity).appendTo($('#myform'));
                 	$("<input>").attr('type','hidden').attr('name','fo').attr('value',folio).appendTo($('#myform'));
                 	$("#myModal3").modal('show');

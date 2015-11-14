@@ -242,6 +242,7 @@
             $this -> db -> from('floor_activities_comments as fa');
             $this -> db -> join('employees as e','e.employee_id = fa.employee_id','INNER');
             $this -> db -> where('folio_id', $folio);
+            $this -> db -> order_by("fa.date", "desc");
             $this -> db -> limit(100);
             return $this -> db -> get();
         } else if($bd == "pts"){
@@ -250,6 +251,7 @@
             $this -> dbPTS -> from('floor_activities_comments as fa');
             $this -> dbPTS -> join('employees as e','e.employee_id = fa.employee_id','INNER');
             $this -> dbPTS -> where('folio_id', $folio);
+            $this -> dbPTS -> order_by("fa.date", "desc");
             $this -> dbPTS -> limit(100);
             return $this -> dbPTS -> get();
         }
@@ -305,10 +307,13 @@
 
     }
 
-    public function update_activity_tostop( $activity_id, $company, $action, $comentario, $folio, $time){
+    public function update_activity_tostop( $activity_id, $company, $action, $comentario, $folio, $time, $activity_desc){
 
         $afftectedRows = 0;
         $idComment = 0;
+        $comentario_comp = "";
+        $comentario = str_replace("<p>", "", $comentario);
+        $comentario = str_replace("</p>", "", $comentario);
 
         $data = array(
            'status' => '3',
@@ -319,11 +324,14 @@
         $session = $ci->session->userdata('logged_in');
         $id_empl = $session['employee_id']; 
 
+        $comentario_comp = "<b>[[** DETENIDA - ".$activity_desc." **]] - </b>".$comentario;
+
+
         $data2 = array(
            'folio_id'       => $folio ,
            'date'           => $time,
            'employee_id'    => $id_empl,
-           'comments'       => $comentario
+           'comments'       => $comentario_comp
         );
 
 

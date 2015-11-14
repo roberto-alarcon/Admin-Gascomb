@@ -17,6 +17,7 @@ class Ajaxmechanic extends CI_Controller {
 	public function udpate_activitie(){
 
 		$activity_id = $this->input->post('actv');
+		$activity_desc = $this->input->post('actdes');
 		$company = $this->input->post('comp');
         $action = $this->input->post('act');
         $comentario = $this->input->post('comentario');
@@ -34,7 +35,7 @@ class Ajaxmechanic extends CI_Controller {
 				echo 0;
 			}
 		} else {
-			$idComment = $this->mechanic_activities->update_activity_tostop($activity_id, $company, $action, $comentario, $folio, $time);
+			$idComment = $this->mechanic_activities->update_activity_tostop($activity_id, $company, $action, $comentario, $folio, $time, $activity_desc);
 			$this->floor_activities_details_control->updateDetailsActivitiesStop($folio, $activity_id, $company, $action, $time, $idComment);
 			
 			redirect('mechanic_main', 'refresh');
