@@ -44,3 +44,15 @@ CREATE TABLE `sistema_gascomb`.`floor_activities_details_control` (
   `comments_id` INT NULL,
   PRIMARY KEY (`floor_activities_details_control_id`));
 
+CREATE TABLE `sistema_gascomb`.`floor_activities_extensions` (
+  `floor_activities_extensions_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `extensions_comments` TEXT NOT NULL,
+  `status` INT(1) NOT NULL,
+  `date_request` INT(12) NULL DEFAULT NULL,
+  `approval_date` INT(12) NULL DEFAULT NULL,
+  `applicant_employee` INT(3) NULL DEFAULT NULL,
+  `employee_responsible` INT(3) NULL DEFAULT NULL,
+  `responsible_agency` TEXT NULL,
+  PRIMARY KEY (`floor_activities_extensions_id`));
+
+
