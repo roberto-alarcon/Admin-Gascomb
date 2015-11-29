@@ -46,6 +46,7 @@ CREATE TABLE `sistema_gascomb`.`floor_activities_details_control` (
 
 CREATE TABLE `sistema_gascomb`.`floor_activities_extensions` (
   `floor_activities_extensions_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `folio_id` INT(11) NOT NULL AUTO_INCREMENT,
   `extensions_comments` TEXT NOT NULL,
   `status` INT(1) NOT NULL,
   `date_request` INT(12) NULL DEFAULT NULL,

@@ -38,6 +38,9 @@ class Mechanic_main extends CI_Controller {
                 $DatasFolio = $this->mechanic_activities->findDataFolio($row->folio_id,$bd);
                 $foliosValidos[$c]['datos_folio'] = $DatasFolio->result();
 
+                $Extensions = $this->mechanic_activities->findExtensionsFolio($row->folio_id,$bd);
+                $foliosValidos[$c]['extensions'] = $Extensions->result();
+
                 $Comments = $this->mechanic_activities->findCommentsFolio($row->folio_id,$bd);
                 $foliosValidos[$c]['comments'] = $Comments->result();
 
@@ -45,6 +48,7 @@ class Mechanic_main extends CI_Controller {
                 if ($LeaderId <> ""){
                     foreach ($LeaderId->result() as $k1 => $row){
                        $LeaderName = $this->mechanic_activities->findNameEmployee($row->leader_employee_id,$bd);
+                       $foliosValidos[$c]['leaderid'] = $row->leader_employee_id;
                        $foliosValidos[$c]['leadername'] = $LeaderName;
                        $foliosValidos[$c]['priority'] = $row->priority;
                     }
@@ -76,6 +80,7 @@ class Mechanic_main extends CI_Controller {
                 if ($LeaderIdP <> ""){
                     foreach ($LeaderIdP->result() as $k4 => $row4){
                        $LeaderNameP = $this->mechanic_activities->findNameEmployee($row4->leader_employee_id,$bd2);
+                       $foliosValidosP[$p]['leaderid'] = $row4->leader_employee_id;
                        $foliosValidosP[$p]['leadername'] = $LeaderNameP;
                        $foliosValidosP[$p]['priority'] = $row4->priority;
                     }

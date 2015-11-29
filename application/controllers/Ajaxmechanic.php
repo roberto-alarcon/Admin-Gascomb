@@ -37,13 +37,31 @@ class Ajaxmechanic extends CI_Controller {
 		} else {
 			$idComment = $this->mechanic_activities->update_activity_tostop($activity_id, $company, $action, $comentario, $folio, $time, $activity_desc);
 			$this->floor_activities_details_control->updateDetailsActivitiesStop($folio, $activity_id, $company, $action, $time, $idComment);
-			
+			sleep(2);
 			redirect('mechanic_main', 'refresh');
 		}
-        
+ 
 		
 
 	}
+
+	public function add_extensions(){
+
+        $folio_ext = $this->input->post('fol_ext');
+        $comment_ext = $this->input->post('comment_ext');
+        $comp_ext = $this->input->post('comp_ext');
+        $lead_ext = $this->input->post('lead_ext');
+
+        $this->load->model('floor_activities_extensions');
+        $myextension = $this->floor_activities_extensions->add_extensions_folio($folio_ext,$comment_ext,$comp_ext,$lead_ext);
+        if ($myextension > 0){
+        	sleep(2);
+        	redirect('mechanic_main', 'refresh');
+        } 
+		
+
+	}
+
 
 
 
