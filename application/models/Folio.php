@@ -28,6 +28,25 @@ Class Folio extends CI_Model{
     return $query;
 
   }
+
+
+  public function get_productivity(){
+
+    $session  = $this->session->userdata('logged_in');
+    $bd       = $session['bd'];
+
+    $this->load->database( $bd , TRUE);
+    $this->db->select('*');
+    $this->db->from('folios');
+    $this->db->where('support_status_id !=', 8);
+    $this->db->where('support_status_id !=', 9);
+    $query = $this->db->get();
+
+    return $query;
+
+
+
+  }
  
     
  }
