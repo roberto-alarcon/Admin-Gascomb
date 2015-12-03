@@ -27,11 +27,17 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MENÚ GENERAL</li>
-            <li>
-              <a href="pages/calendar.html">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                <small class="label pull-right bg-red">3</small>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-calendar"></i>
+                <span>Dashboard</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo base_url('index.php/dashboard/reporte'); ?>"><i class="fa fa-circle-o"></i> Reporte de Productividad </a></li>
+                
+                
+              </ul>
             </li>
             
             

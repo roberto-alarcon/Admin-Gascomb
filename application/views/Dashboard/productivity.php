@@ -18,7 +18,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Reporte de productividad
+            Reporte de productividad - Total <?php echo count( $report); ?>
             
           </h1>
         </section>
