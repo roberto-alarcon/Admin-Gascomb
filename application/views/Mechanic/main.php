@@ -27,7 +27,6 @@ if(count($resultado)<>0){
 				$fol = $folio;
 			}
 			if ( $k2 == "actividades" && count($folio) > 0){
-             
                 $activities = $folio;
 			}
 			if ($k2 == "datos_folio" && count($folio) > 0){
@@ -41,10 +40,12 @@ if(count($resultado)<>0){
                    $service_description = $dataFolio['service_description'];
 				}
 			}
+			if ($k2 == "leaderid"){
+				$leaderid = $folio;
+			}
 			if ($k2 == "leadername"){
 				$leader = $folio;
 			}
-
 			if ($k2 == "priority"){
 				$priority = $folio;
 				switch ($priority) {
@@ -68,10 +69,13 @@ if(count($resultado)<>0){
 
 				}
 			}
-			
-			if ($k2 == "comments"){
+			if ($k2 == "extensions"){
+                $extensions = $folio;
+			}
+			if ($k2 == "comments"){	
                 $comments = $folio;
 			}
+
 		}
 
 ?>
@@ -100,7 +104,7 @@ if(count($resultado)<>0){
 							Cajon: <?=$parking_space?>
 					   </div>
 					   <div class="small-data medio right">
-					   	    <button type="button" class="btn btn-info btn-xs">Ampliación</button>
+					   	    <button type="button" class="btn btn-info btn-xs extensions" fext="<?=$fol?>" cext="<?=$company?>" lext="<?=$leaderid?>">Ampliación</button>
 					   	    <button type="button" class="btn btn-warning btn-xs">Requisición</button>
 					   	    <button type="button" class="btn btn-default btn-xs pdf" data-pdf="<?=$pdf?>">PDF</button>
 					   </div>
@@ -160,6 +164,66 @@ if(count($resultado)<>0){
 					     <div class="medium-data center"><?=$priorities?></div>
 				    </td>
 				  </tr>
+                  <?php if(isset($extensions) && count($extensions) > 0 ){ ?>
+				  <tr>
+					<td colspan="5">
+                       <div class="row">
+				            <div class="col-xs-12">
+				              <div class="box box-default collapsed-box">
+				                <div class="box-header with-border">
+				                  <h3 class="box-title">Ampliaciones</h3>
+				                  <div class="box-tools pull-right">
+				                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+				                  </div><!-- /.box-tools -->
+				                </div><!-- /.box-header -->
+				                <div class="box-body">
+					                <div class="box-body table-responsive no-padding">
+					                  <table class="table table-hover">
+					                  	<tbody>
+						                    <tr>
+						                      <th>Fecha</th>
+						                      <th>Comentarios</th>
+						                      <th>Responsable</th>
+						                      <th>Status</th> 
+						                    </tr>
+						                    <?php
+											  foreach ($extensions as $k5 => $extension) {
+						                    ?>
+						                    <tr>
+						                      <td><?=date('d/m/Y', $extension['date_request']);?></td>
+						                      <td><?=$extension['extensions_comments'];?></td>
+						                      <td><?=$extension_user = $extension['name'] . " " .$extension['last_name'];?></td>
+						                      <td>
+						                      	<?php
+													switch ($extension['status']) {
+													    case "0":
+													        echo "En aprobación";
+													        break;
+													    case "1":
+													        echo "Aprobado";
+													        break;
+													    case "2":
+													        echo "No aprobado";
+													        break;
+													    default:
+													        echo "Sin estatus";
+													}
+						                      	?>
+						                      </td>
+						                    </tr>
+						                    <?php
+											  }
+						                    ?>
+						                </tbody>   
+					                  </table>  
+	                                </div>	                                
+				                </div><!-- /.box-body -->
+				              </div><!-- /.box -->
+                            </div>
+                        </div>    
+					</td>
+				  </tr>
+				  <?php } ?>
 				  <tr>
 					<td colspan="5">
                        <div class="row">

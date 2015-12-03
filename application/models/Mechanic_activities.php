@@ -231,6 +231,29 @@
       
     }
 
+    function findExtensionsFolio($folio,$bd){
+        if ($bd == "default"){
+            $this->load->database( $bd , TRUE);
+            $this -> db -> select('fe.extensions_comments,fe.status,fe.date_request,fe.employee_responsible,e.name,e.last_name');
+            $this -> db -> from('floor_activities_extensions as fe');
+            $this -> db -> join('employees as e','e.employee_id = fe.employee_responsible','INNER');
+            $this -> db -> where('folio_id', $folio);
+            $this -> db -> order_by("fe.date_request", "desc");
+            $this -> db -> limit(100);
+            return $this -> db -> get();
+        } else if($bd == "pts"){
+            $this -> dbPTS = $this->load->database( $bd , TRUE);
+            $this -> dbPTS -> select('fa.date,fa.employee_id,fa.comments,e.name,e.last_name');
+            $this -> dbPTS -> from('floor_activities_comments as fa');
+            $this -> dbPTS -> join('employees as e','e.employee_id = fa.employee_id','INNER');
+            $this -> dbPTS -> where('folio_id', $folio);
+            $this -> dbPTS -> order_by("fa.date", "desc");
+            $this -> dbPTS -> limit(100);
+            return $this -> dbPTS -> get();
+        }
+  
+    }
+
     function findCommentsFolio($folio,$bd){
         if ($bd == "default"){
             $this->load->database( $bd , TRUE);
@@ -257,6 +280,7 @@
         }
   
     }
+
 
     /*function get_departments(){
         $sql = $this->db->query('SELECT departmentName FROM department ORDER BY departmentName ASC');
