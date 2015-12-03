@@ -1,15 +1,11 @@
 <!-- Content Wrapper. Contains page content -->
        <script type="text/javascript">
 
-       function mechanic_view(){
+       function export_excel(){
 
-          window.location.href = "/index.php/tasks/mechanic";
+          window.location.href = "/index.php/dashboard/export_report";
        }
 
-       function task_update(){
-          window.location.href = "/index.php/tasks/update";
-
-       }
 
        </script> 
 
@@ -36,7 +32,7 @@
                     <div class="input-group" style="width: 150px;">
                    
                       <div class="input-group-btn">
-                        <button class="btn btn-block btn-primary" onclick="mechanic_view();">Exportar a Excel</button></i></button>
+                        <button class="btn btn-block btn-primary" onclick="export_excel();">Exportar a Excel</button></i></button>
                       </div>
                     </div>
                   </div>
